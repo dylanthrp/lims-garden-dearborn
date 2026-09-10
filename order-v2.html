@@ -608,6 +608,7 @@ footer { text-align: center; font-size: 12px; color: var(--c-muted); padding: 24
   }
 
   /* ---------- Category chips ---------- */
+  let scrollSpyObserver = null;
   function renderChips() {
     const lang = document.body.dataset.lang;
     const wrap = document.getElementById('chips');
@@ -617,16 +618,70 @@ footer { text-align: center; font-size: 12px; color: var(--c-muted); padding: 24
       const b = document.createElement('button');
       b.type = 'button';
       b.className = 'chip';
+      b.dataset.catIdx = String(idx);
       b.setAttribute('aria-pressed', idx === 0 ? 'true' : 'false');
       b.textContent = cat.cat;
       b.addEventListener('click', () => {
-        wrap.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', 'false'));
-        b.setAttribute('aria-pressed', 'true');
         const target = document.getElementById('cat-' + idx);
         if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
       wrap.appendChild(b);
     });
+    setupScrollSpy();
+  }
+
+  function setActiveChip(idx) {
+    const wrap = document.getElementById('chips');
+    if (!wrap) return;
+    wrap.querySelectorAll('.chip').forEach((c) => {
+      const i = parseInt(c.dataset.catIdx, 10);
+      const active = i === idx;
+      c.setAttribute('aria-pressed', active ? 'true' : 'false');
+      if (active && c.scrollIntoView) {
+        // Keep the active chip visible inside the horizontally scrolling strip
+        try { c.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }); } catch (e) {}
+      }
+    });
+  }
+
+  function setupScrollSpy() {
+    if (scrollSpyObserver) { scrollSpyObserver.disconnect(); scrollSpyObserver = null; }
+    const sections = Array.from(document.querySelectorAll('.cat-section'));
+    if (!sections.length) return;
+    // Top bar (~44px) + sticky chips (~48px) sit above content. Push rootMargin down so a section
+    // is considered "in view" when its top reaches roughly the middle of the visible area.
+    const TOP_OFFSET = 130;
+    const visible = new Map(); // idx -> intersectionRatio
+    scrollSpyObserver = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        const idx = parseInt(e.target.dataset.catIdx, 10);
+        visible.set(idx, e.intersectionRatio);
+      });
+      // Pick the section with the highest visible ratio; tiebreak by smaller idx
+      // (so scrolling down through section 3 → 4 the chip flips at the moment 4 takes over).
+      let bestIdx = -1, bestRatio = 0;
+      for (const [idx, ratio] of visible) {
+        if (ratio > bestRatio + 0.001 || (Math.abs(ratio - bestRatio) < 0.001 && idx > bestIdx && bestIdx >= 0)) {
+          bestIdx = idx; bestRatio = ratio;
+        } else if (bestIdx < 0 && ratio > 0) {
+          bestIdx = idx; bestRatio = ratio;
+        }
+      }
+      // Fallback: if nothing is intersecting enough, find the section nearest the top of viewport
+      if (bestIdx < 0) {
+        let topY = Infinity;
+        sections.forEach((s) => {
+          const r = s.getBoundingClientRect();
+          if (r.top < topY && r.bottom > TOP_OFFSET) { topY = r.top; bestIdx = parseInt(s.dataset.catIdx, 10); }
+        });
+      }
+      if (bestIdx >= 0) setActiveChip(bestIdx);
+    }, {
+      root: null,
+      rootMargin: `-${TOP_OFFSET}px 0px -50% 0px`,
+      threshold: [0, 0.01, 0.1, 0.25, 0.5, 0.75, 1],
+    });
+    sections.forEach((s, i) => { s.dataset.catIdx = String(i); scrollSpyObserver.observe(s); });
   }
 
   /* ---------- Menu tiles ---------- */
