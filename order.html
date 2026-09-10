@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#7a1218" />
+<meta name="description" content="Order takeout from Lim's Garden — Cantonese and Chinese-American comfort food in Dearborn, MI. Pay online or cash on pickup." />
+<meta property="og:title" content="Order takeout — Lim's Garden" />
+<meta property="og:description" content="Pickup only · 20001 Carlysle St, Dearborn, MI · Pay online or cash." />
+<title>Order takeout · Lim's Garden · Dearborn, MI</title>
+<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%237a1218'/><text x='50%25' y='54%25' text-anchor='middle' font-family='serif' font-size='34' fill='%23f1c659' font-weight='700'>L</text></svg>" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "Lim's Garden",
+  "alternateName": "林园",
+  "address": { "@type": "PostalAddress", "streetAddress": "20001 Carlysle St", "addressLocality": "Dearborn", "addressRegion": "MI", "postalCode": "48124-3803", "addressCountry": "US" },
+  "telephone": "+1-313-563-4393",
+  "servesCuisine": ["Chinese", "Cantonese", "Asian"]
+}
+</script>
+
+<style>
+:root {
+  --c-red: #7a1218;       --c-red-deep: #5a0d12;
+  --c-gold: #f1c659;      --c-cream: #fbf6ec;
+  --c-cream-2: #f4ead4;   --c-ink: #1a1410;
+  --c-line: #e6d9bd;      --c-muted: #6a5d4f;
+  --r: 14px;              --shadow: 0 1px 0 rgba(0,0,0,.04), 0 8px 24px -12px rgba(122,18,24,.18);
+  --max: 720px;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  background: var(--c-cream);
+  color: var(--c-ink);
+  line-height: 1.55;
+  font-size: 16px;
+  background-image:
+    radial-gradient(circle at 12px 12px, rgba(122,18,24,.05) 1px, transparent 1.5px),
+    radial-gradient(circle at 36px 36px, rgba(122,18,24,.05) 1px, transparent 1.5px);
+  background-size: 48px 48px;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--c-red-deep); }
+button { font: inherit; cursor: pointer; }
+
+/* Mobile-first, sticky bar identical pattern as the home page */
+.lang-bar {
+  display: flex; justify-content: flex-end; gap: 6px;
+  padding: 6px 12px;
+  padding-top: max(6px, env(safe-area-inset-top));
+  background: var(--c-cream-2);
+  border-bottom: 1px solid var(--c-line);
+  position: sticky; top: 0; z-index: 60;
+}
+.lang-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--c-muted);
+  padding: 4px 12px;
+  font-size: 13px; font-weight: 600;
+  border-radius: 999px;
+  cursor: pointer;
+  min-height: 32px;
+}
+.lang-btn[aria-pressed="true"] {
+  background: var(--c-red);
+  color: #fff;
+  border-color: var(--c-red-deep);
+}
+
+.cart-bar {
+  position: sticky; top: 44px; z-index: 50;
+  background: var(--c-red); color: #fff;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 14px;
+  font-weight: 600; font-size: 15px;
+  border-bottom: 1px solid var(--c-red-deep);
+  box-shadow: 0 2px 8px rgba(0,0,0,.18);
+}
+.cart-bar a.back { color: #fff; text-decoration: none; opacity: .9; font-size: 13px; }
+.cart-bar .total { font-weight: 800; }
+
+main { max-width: var(--max); margin: 0 auto; padding: 0 0 120px; }
+
+/* Hero — small */
+.hero {
+  background: linear-gradient(180deg, rgba(122,18,24,.92), rgba(90,13,18,.96)), var(--c-red);
+  color: #fff;
+  padding: 22px 18px 18px;
+  border-bottom-left-radius: 28px;
+  border-bottom-right-radius: 28px;
+}
+.hero .badge {
+  display: inline-block; font-style: italic; font-size: 14px;
+  color: var(--c-gold); margin-bottom: 4px;
+  font-family: "Cormorant Garamond", Georgia, serif;
+}
+.hero h1 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 28px; line-height: 1.1; margin: 0;
+  font-weight: 700;
+}
+.hero .pickup {
+  margin-top: 10px; display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(0,0,0,.18); border: 1px solid rgba(241,198,89,.4);
+  padding: 6px 12px; border-radius: 999px;
+  font-size: 13px; font-weight: 600;
+}
+.hero .pickup .dot { width: 8px; height: 8px; border-radius: 50%; background: #6dd06d; }
+
+/* Menu */
+section.menu { padding: 18px 14px 0; }
+section h2 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 24px; color: var(--c-red-deep);
+  margin: 0 0 10px;
+}
+.cat {
+  background: #fff;
+  border: 1px solid var(--c-line);
+  border-radius: var(--r);
+  margin-bottom: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.cat-head {
+  padding: 12px 14px;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 18px; color: var(--c-red-deep);
+  background: var(--c-cream-2);
+  border-bottom: 1px solid var(--c-line);
+}
+.item {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px;
+  padding: 12px 14px;
+  border-top: 1px dashed var(--c-line);
+}
+.item:first-of-type { border-top: 0; }
+.item .info { flex: 1; min-width: 0; }
+.item .name { font-weight: 600; font-size: 15px; }
+.item .desc { display: block; font-size: 12px; color: var(--c-muted); margin-top: 2px; }
+.item .price { color: var(--c-red); font-weight: 700; font-variant-numeric: tabular-nums; min-width: 56px; text-align: right; }
+.qty {
+  display: inline-flex; align-items: center;
+  border: 1px solid var(--c-line);
+  border-radius: 999px; overflow: hidden;
+  background: var(--c-cream);
+}
+.qty button {
+  width: 36px; height: 36px;
+  border: 0; background: transparent;
+  font-size: 18px; font-weight: 700; color: var(--c-red-deep);
+}
+.qty button:disabled { opacity: .35; }
+.qty .count { min-width: 28px; text-align: center; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+/* Sticky checkout bar at the bottom on mobile */
+.checkout-bar {
+  position: fixed; left: 0; right: 0; bottom: 0;
+  background: #fff; border-top: 1px solid var(--c-line);
+  padding: 10px 14px;
+  padding-bottom: max(10px, env(safe-area-inset-bottom));
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; z-index: 40;
+  box-shadow: 0 -4px 20px rgba(0,0,0,.06);
+}
+.checkout-bar .info { line-height: 1.15; }
+.checkout-bar .info small { display: block; font-size: 11px; color: var(--c-muted); }
+.checkout-bar .info .total { font-weight: 800; font-size: 17px; color: var(--c-red-deep); }
+.checkout-bar .btn {
+  background: var(--c-red); color: #fff;
+  border: 0; padding: 12px 18px;
+  border-radius: 999px; font-weight: 800;
+  min-height: 44px; font-size: 15px;
+}
+.checkout-bar .btn:disabled { opacity: .4; }
+
+/* Empty state */
+.empty {
+  background: #fff;
+  border: 1px dashed var(--c-line);
+  border-radius: var(--r);
+  padding: 24px;
+  text-align: center;
+  color: var(--c-muted);
+}
+.empty h3 { font-family: "Cormorant Garamond", Georgia, serif; font-size: 22px; color: var(--c-red-deep); margin: 0 0 8px; }
+
+.pitch-note {
+  margin: 20px 14px 0;
+  padding: 12px 14px;
+  border-radius: var(--r);
+  background: #fff8e6;
+  border: 1px solid #e8d18a;
+  font-size: 13px;
+  color: #5a4416;
+}
+
+footer { text-align: center; font-size: 12px; color: var(--c-muted); padding: 24px 14px 36px; }
+
+@media (min-width: 560px) {
+  .cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .cat-grid .cat { margin: 0; }
+}
+</style>
+</head>
+<body data-lang="en">
+
+<div class="lang-bar" role="navigation" aria-label="Language">
+  <button type="button" class="lang-btn" data-set-lang="en" aria-pressed="true">English</button>
+  <button type="button" class="lang-btn" data-set-lang="zh" aria-pressed="false">中文</button>
+</div>
+
+<div class="cart-bar">
+  <a class="back" href="./">← Back to menu</a>
+  <span><span data-i18n="yourOrder">Your order</span> · <span class="total" id="barCount">0</span></span>
+</div>
+
+<main>
+
+  <header class="hero">
+    <div class="badge" data-i18n="badge">Family-run · Dearborn · ~1957</div>
+    <h1 data-i18n="h1">Order takeout</h1>
+    <div class="pickup">
+      <span class="dot"></span>
+      <span data-i18n="pickupNote">Pickup only · 20001 Carlysle St</span>
+    </div>
+  </header>
+
+  <section class="menu" id="menu">
+
+    <!-- Categories injected by JS below -->
+
+  </section>
+
+  <div class="pitch-note" data-i18n="demoNote">
+    <strong>Demo mode.</strong> Checkout uses Stripe's test card — no real charge. Owner gets an email at the address on file.
+  </div>
+
+</main>
+
+<div class="checkout-bar" id="checkoutBar">
+  <div class="info">
+    <small data-i18n="subtotalLabel">Subtotal</small>
+    <div class="total"><span id="barTotal">$0.00</span></div>
+  </div>
+  <button class="btn" id="checkoutBtn" disabled data-i18n="checkoutBtn">Checkout →</button>
+</div>
+
+<footer>
+  <p>Lim&rsquo;s Garden · 林园 · 20001 Carlysle St, Dearborn, MI 48124 · (313) 563-4393</p>
+</footer>
+
+<!-- ====================== Menu data ====================== -->
+<script id="menu-data" type="application/json">
+{
+  "en": [
+    { "cat": "Appetizers & Soup", "items": [
+      { "id": "rangoon", "name": "Crab Rangoon (4)",      "desc": "Crispy wontons, sweet & savory",         "price": 380 },
+      { "id": "wonton",  "name": "Wonton Soup",           "desc": "House favorite — light, fresh broth",   "price": 0   },
+      { "id": "eggroll", "name": "Egg Rolls (2)",         "desc": "",                                       "price": 0   },
+      { "id": "hotsour", "name": "Hot & Sour Soup",       "desc": "",                                       "price": 0   }
+    ]},
+    { "cat": "Fried Rice", "items": [
+      { "id": "fr-veg",   "name": "Vegetable Fried Rice", "price": 450 },
+      { "id": "fr-beef",  "name": "Beef Fried Rice",      "price": 480 },
+      { "id": "fr-chk",   "name": "Chicken Fried Rice",   "price": 480 },
+      { "id": "fr-shr",   "name": "Shrimp Fried Rice",    "price": 495 },
+      { "id": "fr-pork",  "name": "Pork Fried Rice",      "price": 480 }
+    ]},
+    { "cat": "Noodles & Lo Mein", "items": [
+      { "id": "lo-chk",  "name": "Chicken Lo Mein", "price": 984 },
+      { "id": "lo-shr",  "name": "Shrimp Lo Mein",  "price": 1060 },
+      { "id": "lo-beef", "name": "Beef Lo Mein",    "price": 984 },
+      { "id": "lo-pork", "name": "Pork Lo Mein",    "price": 984 }
+    ]},
+    { "cat": "Special Suggestions", "items": [
+      { "id": "gai",     "name": "Gai Kow",                              "desc": "Breaded chicken breast with Chinese vegetables", "price": 950 },
+      { "id": "almond",  "name": "Almond Boneless Chicken",              "desc": "Crispy chicken in sweet almond sauce",            "price": 0   },
+      { "id": "ss",      "name": "Sweet & Sour Chicken",                 "desc": "",                                                "price": 0   },
+      { "id": "shr-plum","name": "Fried Shrimp Chinese Style w/ Plum",  "desc": "",                                                "price": 750 }
+    ]},
+    { "cat": "Combination Plates", "items": [
+      { "id": "pepper",   "name": "Pepper Steak",         "price": 1100 },
+      { "id": "broccoli", "name": "Broccoli Chicken",     "price": 800 },
+      { "id": "snowchk",  "name": "Chicken & Snow Peas",  "price": 0    },
+      { "id": "snowshr",  "name": "Shrimp with Snow Peas","price": 0    }
+    ]}
+  ],
+  "zh": [
+    { "cat": "小菜与汤品", "items": [
+      { "id": "rangoon", "name": "炸蟹角(4 只)", "desc": "外酥内嫩,香甜可口",     "price": 380 },
+      { "id": "wonton",  "name": "云吞汤",       "desc": "本店招牌 · 清淡鲜美",   "price": 0   },
+      { "id": "eggroll", "name": "春卷(2 条)",  "desc": "",                       "price": 0   },
+      { "id": "hotsour", "name": "酸辣汤",       "desc": "",                       "price": 0   }
+    ]},
+    { "cat": "炒饭", "items": [
+      { "id": "fr-veg",   "name": "素炒饭",   "price": 450 },
+      { "id": "fr-beef",  "name": "牛肉炒饭", "price": 480 },
+      { "id": "fr-chk",   "name": "鸡肉炒饭", "price": 480 },
+      { "id": "fr-shr",   "name": "虾仁炒饭", "price": 495 },
+      { "id": "fr-pork",  "name": "猪肉炒饭", "price": 480 }
+    ]},
+    { "cat": "面食与捞面", "items": [
+      { "id": "lo-chk",  "name": "鸡肉捞面", "price": 984 },
+      { "id": "lo-shr",  "name": "虾仁捞面", "price": 1060 },
+      { "id": "lo-beef", "name": "牛肉捞面", "price": 984 },
+      { "id": "lo-pork", "name": "猪肉捞面", "price": 984 }
+    ]},
+    { "cat": "招牌推荐", "items": [
+      { "id": "gai",     "name": "鸡球",                 "desc": "酥炸鸡胸配中式蔬菜", "price": 950 },
+      { "id": "almond",  "name": "杏仁去骨鸡",           "desc": "酥脆鸡肉配香甜杏仁酱", "price": 0 },
+      { "id": "ss",      "name": "糖醋鸡",               "desc": "",                  "price": 0 },
+      { "id": "shr-plum","name": "中式炸虾配梅子酱",     "desc": "",                  "price": 750 }
+    ]},
+    { "cat": "套餐", "items": [
+      { "id": "pepper",   "name": "胡椒牛柳",   "price": 1100 },
+      { "id": "broccoli", "name": "西兰花鸡",   "price": 800 },
+      { "id": "snowchk",  "name": "雪豆鸡",     "price": 0 },
+      { "id": "snowshr",  "name": "雪豆虾",     "price": 0 }
+    ]}
+  ],
+  "I18N": {
+    "en": {
+      "yourOrder": "Your order",
+      "checkoutBtn": "Checkout →",
+      "subtotalLabel": "Subtotal (online price)",
+      "addBtn": "Add",
+      "unpriced": "Ask for price",
+      "empty": "Your cart is empty.",
+      "h1": "Order takeout",
+      "badge": "Family-run · Dearborn · ~1957",
+      "pickupNote": "Pickup only · 20001 Carlysle St",
+      "demoNote": "<strong>Demo mode.</strong> Checkout uses Stripe's test card — no real charge. Owner gets an email at the address on file."
+    },
+    "zh": {
+      "yourOrder": "您的订单",
+      "checkoutBtn": "结账 →",
+      "subtotalLabel": "小计(线上价格)",
+      "addBtn": "添加",
+      "unpriced": "请到店询价",
+      "empty": "购物车为空。",
+      "h1": "外带点餐",
+      "badge": "家庭经营 · 迪尔伯恩 · 约 1957 年",
+      "pickupNote": "仅限外带 · Carlysle 街 20001 号",
+      "demoNote": "<strong>演示模式。</strong> 结账使用 Stripe 测试卡,不产生真实扣款。"
+    }
+  }
+}
+</script>
+
+<script>
+/* ===========================================================
+   Lim's Garden — Order page (v1 demo)
+   - Mobile-first cart with localStorage persistence
+   - Stripe Checkout via Cloudflare Worker (test mode)
+   - English ⇄ Mandarin
+   =========================================================== */
+(function () {
+  const data = JSON.parse(document.getElementById('menu-data').textContent);
+  const STORE_KEY = 'lims_cart_v1';
+  const URL_PARAMS = new URLSearchParams(location.search);
+
+  /* ---------- Cart state ---------- */
+  function loadCart() {
+    try { return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; }
+    catch (e) { return {}; }
+  }
+  function saveCart(c) {
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(c)); } catch (e) {}
+  }
+  let cart = loadCart();
+
+  function cartCount(c) { return Object.values(c).reduce((a, b) => a + b, 0); }
+  function cartTotalCents(c) {
+    const lang = document.body.dataset.lang;
+    const items = data[lang];
+    let total = 0;
+    items.forEach(cat => cat.items.forEach(it => {
+      const n = c[it.id] || 0;
+      if (n > 0 && it.price > 0) total += n * it.price;
+    }));
+    return total;
+  }
+  function fmt(cents) { return '$' + (cents / 100).toFixed(2); }
+
+  /* ---------- i18n ---------- */
+  function applyLang(lang) {
+    document.body.dataset.lang = lang;
+    document.documentElement.lang = (lang === 'zh') ? 'zh-Hans' : 'en';
+    document.querySelectorAll('.lang-btn').forEach(function (b) {
+      b.setAttribute('aria-pressed', b.dataset.setLang === lang ? 'true' : 'false');
+    });
+    var dict = data.I18N[lang];
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var k = el.dataset.i18n;
+      if (dict[k] != null) el.innerHTML = dict[k];
+    });
+    render();
+  }
+
+  /* ---------- Render menu ---------- */
+  function render() {
+    const lang = document.body.dataset.lang;
+    const menu = document.getElementById('menu');
+    menu.innerHTML = '';
+    const wrap = document.createElement('div');
+    if (window.matchMedia('(min-width: 560px)').matches) {
+      wrap.className = 'cat-grid';
+      const wrap2 = document.createElement('div');
+      wrap2.style.cssText = 'display:contents';
+      wrap.appendChild(wrap2);
+    }
+    const cats = data[lang];
+    cats.forEach(cat => {
+      const card = document.createElement('div');
+      card.className = 'cat';
+      const head = document.createElement('div');
+      head.className = 'cat-head';
+      head.textContent = cat.cat;
+      card.appendChild(head);
+      cat.items.forEach(it => {
+        const row = document.createElement('div');
+        row.className = 'item';
+        const info = document.createElement('div');
+        info.className = 'info';
+        const name = document.createElement('div');
+        name.className = 'name';
+        name.textContent = it.name;
+        info.appendChild(name);
+        if (it.desc) {
+          const d = document.createElement('span');
+          d.className = 'desc';
+          d.textContent = it.desc;
+          info.appendChild(d);
+        }
+        const right = document.createElement('div');
+        right.style.cssText = 'display:flex; align-items:center; gap:10px;';
+        const price = document.createElement('div');
+        price.className = 'price';
+        price.textContent = it.price > 0 ? fmt(it.price) : '—';
+        right.appendChild(price);
+        const qty = document.createElement('div');
+        qty.className = 'qty';
+        const minus = document.createElement('button');
+        minus.type = 'button';
+        minus.setAttribute('aria-label', '−');
+        minus.textContent = '−';
+        const count = document.createElement('span');
+        count.className = 'count';
+        count.textContent = (cart[it.id] || 0);
+        const plus = document.createElement('button');
+        plus.type = 'button';
+        plus.setAttribute('aria-label', '+');
+        plus.textContent = '+';
+        if (it.price <= 0) {
+          // We can still accept "ask for price" items, but at demo time we need to skip them to avoid $0 line items in Stripe.
+          // Disable adding items with no listed price; show a small hint.
+          minus.disabled = true; plus.disabled = true;
+          const ask = document.createElement('span');
+          ask.style.cssText = 'display:block;width:100%;font-size:11px;color:var(--c-muted);font-style:italic;margin-top:2px';
+          ask.textContent = data.I18N[lang].unpriced;
+          info.appendChild(ask);
+        }
+        qty.appendChild(minus); qty.appendChild(count); qty.appendChild(plus);
+        right.appendChild(qty);
+        minus.addEventListener('click', () => {
+          cart[it.id] = Math.max(0, (cart[it.id] || 0) - 1);
+          if (cart[it.id] === 0) delete cart[it.id];
+          saveCart(cart); render();
+        });
+        plus.addEventListener('click', () => {
+          cart[it.id] = (cart[it.id] || 0) + 1;
+          saveCart(cart); render();
+        });
+        row.appendChild(info); row.appendChild(right);
+        card.appendChild(row);
+      });
+      (wrap.classList.contains('cat-grid') ? wrap.firstChild : wrap).appendChild(card);
+    });
+    menu.appendChild(wrap);
+    updateBar();
+  }
+
+  function updateBar() {
+    const n = cartCount(cart);
+    const total = cartTotalCents(cart);
+    document.getElementById('barCount').textContent = n;
+    document.getElementById('barTotal').textContent = fmt(total);
+    document.getElementById('checkoutBtn').disabled = n === 0 || total === 0;
+  }
+
+  /* ---------- Checkout: POST to Cloudflare Worker, follow redirect to Stripe ---------- */
+  async function checkout() {
+    const btn = document.getElementById('checkoutBtn');
+    btn.disabled = true;
+    btn.textContent = '...';
+    try {
+      const lang = document.body.dataset.lang;
+      const items = data[lang];
+      const lineItems = [];
+      items.forEach(cat => cat.items.forEach(it => {
+        const n = cart[it.id] || 0;
+        if (n > 0 && it.price > 0) {
+          lineItems.push({ name: it.name, unit_amount: it.price, quantity: n });
+        }
+      }));
+      if (lineItems.length === 0) { alert('Add at least one priced item first.'); return; }
+
+      const origin = location.origin + location.pathname.replace(/order\.html?$/, '');
+      const successUrl = origin + 'order.html?status=success';
+      const cancelUrl  = origin + 'order.html?status=cancel';
+
+      // Replace with your Worker URL once deployed.
+      const workerUrl = 'https://lims-garden-checkout.YOUR-SUBDOMAIN.workers.dev';
+
+      const r = await fetch(workerUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          line_items: lineItems,
+          success_url: successUrl,
+          cancel_url: cancelUrl,
+          metadata: { lang: lang }
+        })
+      });
+      if (!r.ok) {
+        const txt = await r.text().catch(() => '');
+        alert('Checkout failed: ' + r.status + (txt ? ' — ' + txt : ''));
+        return;
+      }
+      const { url } = await r.json();
+      if (!url) { alert('Checkout failed: no URL returned.'); return; }
+      // Persist the pending cart to the success page so we can show a "what you ordered" recap
+      localStorage.setItem('lims_last_order_v1', JSON.stringify({ items: lineItems, lang: lang, at: Date.now() }));
+      location.href = url;
+    } catch (e) {
+      alert('Network error: ' + e.message);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = data.I18N[document.body.dataset.lang].checkoutBtn;
+    }
+  }
+
+  /* ---------- Success / cancel recap ---------- */
+  function showStatus() {
+    const status = URL_PARAMS.get('status');
+    if (!status) return;
+    const lang = document.body.dataset.lang;
+    const last = JSON.parse(localStorage.getItem('lims_last_order_v1') || 'null');
+    const menu = document.getElementById('menu');
+    const wrap = document.createElement('div');
+    wrap.className = 'cat';
+    wrap.style.cssText = 'padding:16px; margin-bottom:14px;';
+    if (status === 'success') {
+      wrap.style.borderColor = '#5a8a3a';
+      wrap.innerHTML = '<div class="cat-head" style="background:#e8f4dd;color:#2d4a18;">✓ ' +
+        (lang === 'zh' ? '下单成功!请到店取餐。' : 'Order placed! Ready for pickup.') + '</div>';
+      if (last) {
+        const items = last.items.map(i => '· ' + i.quantity + ' × ' + i.name + ' — ' + fmt(i.unit_amount * i.quantity)).join('<br>');
+        const total = last.items.reduce((a, i) => a + i.unit_amount * i.quantity, 0);
+        wrap.innerHTML += '<div style="padding:12px 0;font-size:14px;">' + items + '</div>' +
+          '<div style="border-top:1px solid var(--c-line); padding-top:10px; font-weight:800; color:var(--c-red-deep);">' +
+          (lang === 'zh' ? '合计' : 'Total') + ': ' + fmt(total) + ' + ' + (lang === 'zh' ? '线上支付手续费' : 'Stripe processing') + ' (~' + fmt(Math.round(total * 0.029) + 30) + ')</div>';
+      }
+      wrap.innerHTML += '<div style="padding-top:10px;font-size:13px;color:var(--c-muted);">' +
+        (lang === 'zh' ? '我们已收到订单。请在选定的取餐时间到店,凭姓名取餐。' :
+                          'We received your order. Bring your name to the side window at your selected pickup time.') + '</div>';
+      // Clear cart on success
+      localStorage.removeItem(STORE_KEY);
+      cart = {};
+    } else if (status === 'cancel') {
+      wrap.innerHTML = '<div class="cat-head">' + (lang === 'zh' ? '订单已取消' : 'Order cancelled') + '</div>' +
+        '<div style="padding:10px 0;font-size:14px;">' + (lang === 'zh' ? '没有产生任何费用。您可以重新选择菜品。' : 'No charge. You can re-add items and try again.') + '</div>';
+    }
+    menu.insertBefore(wrap, menu.firstChild);
+  }
+
+  /* ---------- Init ---------- */
+  document.querySelectorAll('.lang-btn').forEach(function (b) {
+    b.addEventListener('click', function () { applyLang(b.dataset.setLang); });
+  });
+  document.getElementById('checkoutBtn').addEventListener('click', checkout);
+  applyLang('en');
+  showStatus();
+})();
+</script>
+
+</body>
+</html>
