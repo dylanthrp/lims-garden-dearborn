@@ -601,8 +601,9 @@ footer { text-align: center; font-size: 12px; color: var(--c-muted); padding: 24
       const k = el.dataset.i18n;
       if (dict[k] != null) el.innerHTML = dict[k];
     });
-    renderChips();
+    // Render the menu FIRST so sections exist before scroll-spy attaches to them.
     renderMenu();
+    renderChips();   // also calls setupScrollSpy internally
     updateBar();
     renderSheet();
   }
