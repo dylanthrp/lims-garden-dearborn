@@ -9,24 +9,17 @@
 <meta property="og:description" content="Family-run since ~1957. Fried rice, wonton soup, almond boneless chicken. Takeout only. 20001 Carlysle St, Dearborn." />
 <meta property="og:type" content="restaurant.restaurant" />
 <meta property="og:image" content="https://dylanthrp.github.io/lims-garden-dearborn/og.png" />
-<title>Lim's Garden — Family Chinese Takeout · Dearborn, MI</title>
+<title>林园 · Lim's Garden — Dearborn Family Chinese Takeout</title>
 <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%237a1218'/><text x='50%25' y='54%25' text-anchor='middle' font-family='serif' font-size='34' fill='%23f1c659' font-weight='700'>L</text></svg>" />
 
-<!-- LocalBusiness + Restaurant schema for Google rich results -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Restaurant",
   "name": "Lim's Garden",
+  "alternateName": "林园",
   "image": "https://dylanthrp.github.io/lims-garden-dearborn/og.png",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "20001 Carlysle St",
-    "addressLocality": "Dearborn",
-    "addressRegion": "MI",
-    "postalCode": "48124-3803",
-    "addressCountry": "US"
-  },
+  "address": { "@type": "PostalAddress", "streetAddress": "20001 Carlysle St", "addressLocality": "Dearborn", "addressRegion": "MI", "postalCode": "48124-3803", "addressCountry": "US" },
   "geo": { "@type": "GeoCoordinates", "latitude": 42.28424, "longitude": -83.23328 },
   "telephone": "+1-313-563-4393",
   "servesCuisine": ["Chinese", "Cantonese", "Asian"],
@@ -37,29 +30,19 @@
 </script>
 
 <style>
-/* ===========================================================
-   LIM'S GARDEN — v1
-   Mobile-first single page. Verified data + clearly flagged
-   placeholders. No real photos — owner shoot will replace.
-   =========================================================== */
-
 :root {
-  /* Warm nostalgic palette: red lantern + gold + cream + ink */
-  --c-red: #7a1218;       /* lantern red */
+  --c-red: #7a1218;
   --c-red-deep: #5a0d12;
-  --c-gold: #f1c659;      /* soft gold */
-  --c-cream: #fbf6ec;     /* paper / rice */
+  --c-gold: #f1c659;
+  --c-cream: #fbf6ec;
   --c-cream-2: #f4ead4;
   --c-ink: #1a1410;
   --c-line: #e6d9bd;
   --c-muted: #6a5d4f;
-
-  /* Sizing */
   --r: 14px;
   --shadow: 0 1px 0 rgba(0,0,0,.04), 0 8px 24px -12px rgba(122,18,24,.18);
-  --max: 720px; /* mobile comfort width */
+  --max: 720px;
 }
-
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body {
@@ -69,34 +52,63 @@ body {
   color: var(--c-ink);
   line-height: 1.55;
   font-size: 16px;
-  /* Asian restaurant decorative ribbon background */
   background-image:
     radial-gradient(circle at 12px 12px, rgba(122,18,24,.05) 1px, transparent 1.5px),
     radial-gradient(circle at 36px 36px, rgba(122,18,24,.05) 1px, transparent 1.5px);
   background-size: 48px 48px;
 }
+/* Mandarin: switch body font to a more readable CJK face */
+body[data-lang="zh"] { font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", system-ui, sans-serif; }
+body[data-lang="zh"] .hero h1,
+body[data-lang="zh"] section h2,
+body[data-lang="zh"] .menu-cat summary,
+body[data-lang="zh"] .hours th { font-family: "Noto Serif SC", "Songti SC", "PingFang SC", Georgia, serif; }
 
 img { max-width: 100%; height: auto; display: block; }
 a { color: var(--c-red-deep); }
 
+/* ----- Language toggle (sticky, sits above the order bar) ----- */
+.lang-bar {
+  display: flex; justify-content: flex-end; gap: 6px;
+  padding: 6px 12px;
+  padding-top: max(6px, env(safe-area-inset-top));
+  background: var(--c-cream-2);
+  border-bottom: 1px solid var(--c-line);
+  position: sticky; top: 0; z-index: 60;
+}
+.lang-btn {
+  font: inherit;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--c-muted);
+  padding: 4px 12px;
+  font-size: 13px; font-weight: 600;
+  border-radius: 999px;
+  cursor: pointer;
+  min-height: 32px;
+  letter-spacing: .02em;
+}
+.lang-btn[aria-pressed="true"] {
+  background: var(--c-red);
+  color: #fff;
+  border-color: var(--c-red-deep);
+}
+.lang-btn:active { transform: translateY(1px); }
+
 /* ----- Sticky phone-order bar (mobile) ----- */
 .order-bar {
-  position: sticky; top: 0; z-index: 50;
+  position: sticky; top: 44px; z-index: 50;
   background: var(--c-red);
   color: #fff;
   display: flex; align-items: center; justify-content: space-between;
   gap: 8px;
   padding: 10px 14px;
-  padding-top: max(10px, env(safe-area-inset-top));
   font-weight: 600;
   font-size: 15px;
   border-bottom: 1px solid var(--c-red-deep);
   box-shadow: 0 2px 8px rgba(0,0,0,.18);
 }
-.order-bar .ph {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 13px; opacity: .95;
-}
+.order-bar .ph { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; opacity: .95; }
 .order-bar a.cta {
   display: inline-flex; align-items: center; gap: 6px;
   background: var(--c-gold);
@@ -127,7 +139,6 @@ main { max-width: var(--max); margin: 0 auto; padding: 0 0 80px; }
   overflow: hidden;
 }
 .hero::before {
-  /* subtle gold paper-lantern ring */
   content: "";
   position: absolute; right: -60px; top: -60px;
   width: 220px; height: 220px;
@@ -144,6 +155,7 @@ main { max-width: var(--max); margin: 0 auto; padding: 0 0 80px; }
   letter-spacing: .04em;
   margin-bottom: 6px;
 }
+body[data-lang="zh"] .hero .badge { font-family: "Noto Serif SC", Georgia, serif; font-style: normal; }
 .hero h1 {
   font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 38px;
@@ -153,6 +165,10 @@ main { max-width: var(--max); margin: 0 auto; padding: 0 0 80px; }
   font-weight: 700;
 }
 .hero h1 .amp { color: var(--c-gold); font-style: italic; }
+.hero h1 .zh { display: none; }
+body[data-lang="zh"] .hero h1 .en { display: none; }
+body[data-lang="zh"] .hero h1 .zh { display: inline; color: var(--c-gold); }
+body[data-lang="zh"] .hero h1 .amp { display: none; }
 .hero .tagline {
   font-size: 16px;
   line-height: 1.5;
@@ -167,7 +183,6 @@ main { max-width: var(--max); margin: 0 auto; padding: 0 0 80px; }
 }
 .hero .meta span::before { content: "·"; margin-right: 8px; opacity: .6; }
 .hero .meta span:first-child::before { content: ""; margin: 0; }
-
 .hero .open-now {
   display: inline-flex; align-items: center; gap: 8px;
   background: rgba(0,0,0,.18);
@@ -205,11 +220,7 @@ section .lede {
   margin: 0 0 14px;
 }
 
-/* ----- Big call-to-action row ----- */
-.cta-row {
-  display: grid; gap: 10px;
-  margin-top: 18px;
-}
+.cta-row { display: grid; gap: 10px; margin-top: 18px; }
 .btn {
   display: flex; align-items: center; justify-content: center;
   gap: 10px;
@@ -242,16 +253,10 @@ section .lede {
 .hours tr.today th { color: var(--c-red-deep); font-weight: 800; }
 .hours tr.today td { color: var(--c-red); font-weight: 700; }
 .hours tr.closed td { color: var(--c-muted); font-style: italic; }
-.note {
-  font-size: 12px; color: var(--c-muted);
-  margin: 10px 2px 0;
-}
+.note { font-size: 12px; color: var(--c-muted); margin: 10px 2px 0; }
 
 /* ----- Menu ----- */
-.menu-grid {
-  display: grid; gap: 10px;
-  margin-top: 4px;
-}
+.menu-grid { display: grid; gap: 10px; margin-top: 4px; }
 .menu-cat {
   background: #fff;
   border: 1px solid var(--c-line);
@@ -269,13 +274,7 @@ section .lede {
   min-height: 52px;
 }
 .menu-cat summary::-webkit-details-marker { display: none; }
-.menu-cat summary::after {
-  content: "+";
-  font-family: inherit;
-  font-size: 22px; line-height: 1;
-  color: var(--c-muted);
-  transition: transform .15s ease;
-}
+.menu-cat summary::after { content: "+"; font-size: 22px; line-height: 1; color: var(--c-muted); transition: transform .15s ease; }
 .menu-cat[open] summary::after { content: "−"; }
 .menu-cat .items { padding: 4px 16px 14px; }
 .menu-item {
@@ -321,17 +320,12 @@ section .lede {
   margin-top: 12px;
 }
 
-/* ----- Placeholder photo grid ----- */
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-}
+/* ----- Photo placeholders ----- */
+.gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 .tile {
   aspect-ratio: 1 / 1;
   border-radius: var(--r);
-  background:
-    linear-gradient(135deg, var(--c-cream-2), #efe2c4);
+  background: linear-gradient(135deg, var(--c-cream-2), #efe2c4);
   border: 1px dashed #c8b48c;
   display: flex; align-items: center; justify-content: center;
   font-size: 12px;
@@ -364,27 +358,15 @@ section .lede {
   box-shadow: var(--shadow);
 }
 .review .quote { font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-size: 16px; line-height: 1.45; color: var(--c-ink); margin: 0 0 8px; }
+body[data-lang="zh"] .review .quote { font-family: "Noto Serif SC", Georgia, serif; }
 .review .who { font-size: 13px; color: var(--c-muted); }
 .review .stars { color: var(--c-gold); letter-spacing: 1px; font-size: 14px; }
-.review-source {
-  font-size: 11px; color: var(--c-muted); text-transform: uppercase; letter-spacing: .06em;
-}
+.review-source { font-size: 11px; color: var(--c-muted); text-transform: uppercase; letter-spacing: .06em; }
 
-/* ----- Map / location ----- */
-.map-wrap {
-  border-radius: var(--r);
-  overflow: hidden;
-  border: 1px solid var(--c-line);
-  box-shadow: var(--shadow);
-  background: #fff;
-}
-.map-wrap iframe {
-  display: block; width: 100%; height: 240px; border: 0;
-}
-.loc-info {
-  padding: 14px 16px;
-  font-size: 15px;
-}
+/* ----- Map ----- */
+.map-wrap { border-radius: var(--r); overflow: hidden; border: 1px solid var(--c-line); box-shadow: var(--shadow); background: #fff; }
+.map-wrap iframe { display: block; width: 100%; height: 240px; border: 0; }
+.loc-info { padding: 14px 16px; font-size: 15px; }
 .loc-info strong { color: var(--c-red-deep); }
 .loc-info a { color: var(--c-red); text-decoration: none; font-weight: 600; }
 
@@ -398,7 +380,6 @@ footer {
 }
 footer a { color: var(--c-muted); }
 
-/* ----- Notes / next-step box (owner-facing for the pitch) ----- */
 .pitch-note {
   margin: 18px 16px 0;
   padding: 12px 14px;
@@ -409,7 +390,7 @@ footer a { color: var(--c-muted); }
   color: #5a4416;
 }
 
-/* ----- Tablet/Desktop polish ----- */
+/* ----- Bigger viewports ----- */
 @media (min-width: 560px) {
   .cta-row { grid-template-columns: 1fr 1fr; }
   .gallery { grid-template-columns: repeat(3, 1fr); }
@@ -422,223 +403,191 @@ footer a { color: var(--c-muted); }
   .cta-row { grid-template-columns: 1fr 1fr 1fr; }
 }
 
-/* ----- A11y: larger tap targets on the order bar ----- */
-.order-bar a.cta { min-height: 44px; }
-.btn { min-height: 52px; }
-
-/* ----- Reduce motion ----- */
 @media (prefers-reduced-motion: reduce) {
   .hero .open-now .dot { animation: none; }
 }
 </style>
 </head>
-<body>
+<body data-lang="en">
+
+<div class="lang-bar" role="navigation" aria-label="Language">
+  <button type="button" class="lang-btn" data-set-lang="en" aria-pressed="true">English</button>
+  <button type="button" class="lang-btn" data-set-lang="zh" aria-pressed="false">中文</button>
+</div>
 
 <a class="order-bar" href="#contact" aria-label="Skip to order options">
-  <span class="ph">📞 (313) 563-4393 · Takeout only</span>
-  <span class="cta" aria-hidden="true">Order now →</span>
+  <span class="ph" data-i18n="barPhone">📞 (313) 563-4393 · Takeout only</span>
+  <span class="cta" data-i18n="barCta">Order now →</span>
 </a>
 
 <main>
 
-  <!-- ============== HERO ============== -->
   <header class="hero">
-    <div class="badge">Family-run · Dearborn, MI · Est. ~1957</div>
-    <h1>Lim&rsquo;s <span class="amp">&amp;</span> Garden</h1>
-    <p class="tagline">A neighborhood Chinese kitchen, takeout only, serving Dearborn for nearly seventy years.</p>
+    <div class="badge" data-i18n="heroBadge">Family-run · Dearborn, MI · Est. ~1957</div>
+    <h1>
+      <span class="en">Lim&rsquo;s <span class="amp">&amp;</span> Garden</span>
+      <span class="zh">林园</span>
+    </h1>
+    <p class="tagline" data-i18n="heroTagline">A neighborhood Chinese kitchen, takeout only, serving Dearborn for nearly seventy years.</p>
 
     <div class="meta">
-      <span>3.6★ Yelp · 58 reviews</span>
-      <span>#1 Chinese in Dearborn</span>
-      <span>Family-run</span>
+      <span data-i18n="heroMeta1">3.6★ Yelp · 58 reviews</span>
+      <span data-i18n="heroMeta2">#1 Chinese in Dearborn</span>
+      <span data-i18n="heroMeta3">Family-run</span>
     </div>
 
     <div class="open-now">
       <span class="dot" aria-hidden="true"></span>
-      <span id="open-status">Check today's hours below</span>
+      <span id="open-status" data-i18n="heroStatus">Check today's hours below</span>
     </div>
   </header>
 
-  <!-- ============== ORDER CTA ============== -->
   <section aria-labelledby="order-heading">
-    <h2 id="order-heading">Order takeout</h2>
-    <p class="lede">Call ahead — your order will be hot and ready when you arrive.</p>
+    <h2 id="order-heading" data-i18n="orderH">Order takeout</h2>
+    <p class="lede" data-i18n="orderLede">Call ahead — your order will be hot and ready when you arrive.</p>
     <div class="cta-row">
-      <a class="btn btn-primary" href="tel:+13135634393"><span class="ico">📞</span> Call (313) 563-4393</a>
-      <a class="btn btn-gold" href="https://m.uber.com/ul/?dropoff%5Blatitude%5D=42.28424&dropoff%5Blongitude%5D=-83.23328&dropoff%5Bnickname%5D=Lim%27s+Garden&dropoff%5Bformatted_address%5D=20001+Carlysle+St+Dearborn+MI+48124" target="_blank" rel="noopener"><span class="ico">🛵</span> Uber Eats</a>
-      <a class="btn btn-ghost" href="#location"><span class="ico">📍</span> Directions</a>
+      <a class="btn btn-primary" href="tel:+13135634393"><span class="ico">📞</span> <span data-i18n="ctaCall">Call (313) 563-4393</span></a>
+      <a class="btn btn-gold" href="https://m.uber.com/ul/?dropoff%5Blatitude%5D=42.28424&dropoff%5Blongitude%5D=-83.23328&dropoff%5Bnickname%5D=Lim%27s+Garden&dropoff%5Bformatted_address%5D=20001+Carlysle+St+Dearborn+MI+48124" target="_blank" rel="noopener"><span class="ico">🛵</span> <span data-i18n="ctaUber">Uber Eats</span></a>
+      <a class="btn btn-ghost" href="#location"><span class="ico">📍</span> <span data-i18n="ctaDir">Directions</span></a>
     </div>
-    <p class="note">No indoor seating · Takeout only · Cash &amp; card accepted</p>
+    <p class="note" data-i18n="orderNote">No indoor seating · Takeout only · Cash &amp; card accepted</p>
   </section>
 
-  <!-- ============== HOURS ============== -->
   <section aria-labelledby="hours-heading">
-    <h2 id="hours-heading">Hours</h2>
-    <p class="lede">Closed Mondays. Closed for the major holidays — call to confirm.</p>
+    <h2 id="hours-heading" data-i18n="hoursH">Hours</h2>
+    <p class="lede" data-i18n="hoursLede">Closed Mondays. Closed for the major holidays — call to confirm.</p>
     <div class="hours" role="region" aria-label="Weekly hours">
       <table id="hours-table">
-        <tr><th>Sunday</th><td>4:00&nbsp;PM – 8:00&nbsp;PM</td></tr>
-        <tr><th>Monday</th><td class="closed">Closed</td></tr>
-        <tr><th>Tuesday</th><td>12:00&nbsp;PM – 8:00&nbsp;PM</td></tr>
-        <tr><th>Wednesday</th><td>12:00&nbsp;PM – 8:00&nbsp;PM</td></tr>
-        <tr><th>Thursday</th><td>12:00&nbsp;PM – 8:00&nbsp;PM</td></tr>
-        <tr><th>Friday</th><td>12:00&nbsp;PM – 8:00&nbsp;PM</td></tr>
-        <tr><th>Saturday</th><td>12:00&nbsp;PM – 8:00&nbsp;PM</td></tr>
+        <tr><th data-i18n="dow-sun">Sunday</th><td>4:00&nbsp;PM – 8:00&nbsp;PM</td></tr>
+        <tr><th data-i18n="dow-mon">Monday</th><td class="closed" data-i18n="closed">Closed</td></tr>
+        <tr><th data-i18n="dow-tue">Tuesday</th><td>12:00&nbsp;PM – 8:00&nbsp;PM</td></tr>
+        <tr><th data-i18n="dow-wed">Wednesday</th><td>12:00&nbsp;PM – 8:00&nbsp;PM</td></tr>
+        <tr><th data-i18n="dow-thu">Thursday</th><td>12:00&nbsp;PM – 8:00&nbsp;PM</td></tr>
+        <tr><th data-i18n="dow-fri">Friday</th><td>12:00&nbsp;PM – 8:00&nbsp;PM</td></tr>
+        <tr><th data-i18n="dow-sat">Saturday</th><td>12:00&nbsp;PM – 8:00&nbsp;PM</td></tr>
       </table>
     </div>
-    <p class="note">Hours may vary on holidays. Please call to confirm.</p>
+    <p class="note" data-i18n="hoursNote">Hours may vary on holidays. Please call to confirm.</p>
   </section>
 
-  <!-- ============== MENU ============== -->
   <section id="menu" aria-labelledby="menu-heading">
-    <h2 id="menu-heading">Menu</h2>
-    <p class="lede">A few of our most-loved dishes. Full menu available in-house and over the phone.</p>
+    <h2 id="menu-heading" data-i18n="menuH">Menu</h2>
+    <p class="lede" data-i18n="menuLede">A few of our most-loved dishes. Full menu available in-house and over the phone.</p>
 
     <div class="menu-grid">
       <details class="menu-cat" open>
-        <summary>Appetizers &amp; Soup</summary>
+        <summary data-i18n="cat-app">Appetizers &amp; Soup</summary>
         <div class="items">
-          <div class="menu-item">
-            <span class="name">Crab Rangoon (4) <span class="desc">Crispy wontons, sweet &amp; savory</span></span>
-            <span class="price">$3.80</span>
-          </div>
-          <div class="menu-item">
-            <span class="name">Wonton Soup <span class="desc">House favorite — light, fresh broth</span></span>
-            <span class="price">—</span>
-          </div>
-          <div class="menu-item">
-            <span class="name">Egg Rolls (2)</span>
-            <span class="price">—</span>
-          </div>
-          <div class="menu-item">
-            <span class="name">Hot &amp; Sour Soup</span>
-            <span class="price">—</span>
-          </div>
+          <div class="menu-item"><span class="name" data-i18n="m-rangoon">Crab Rangoon (4)</span><span class="desc" data-i18n="d-rangoon">Crispy wontons, sweet &amp; savory</span><span class="price">$3.80</span></div>
+          <div class="menu-item"><span class="name" data-i18n="m-wonton">Wonton Soup</span><span class="desc" data-i18n="d-wonton">House favorite — light, fresh broth</span><span class="price">—</span></div>
+          <div class="menu-item"><span class="name" data-i18n="m-eggroll">Egg Rolls (2)</span><span class="price">—</span></div>
+          <div class="menu-item"><span class="name" data-i18n="m-hotsour">Hot &amp; Sour Soup</span><span class="price">—</span></div>
         </div>
       </details>
 
       <details class="menu-cat" open>
-        <summary>Fried Rice</summary>
+        <summary data-i18n="cat-fried">Fried Rice</summary>
         <div class="items">
-          <div class="menu-item"><span class="name">Vegetable Fried Rice</span><span class="price">$4.50</span></div>
-          <div class="menu-item"><span class="name">Beef Fried Rice</span><span class="price">$4.80</span></div>
-          <div class="menu-item"><span class="name">Chicken Fried Rice</span><span class="price">$4.80</span></div>
-          <div class="menu-item"><span class="name">Shrimp Fried Rice</span><span class="price">$4.95</span></div>
-          <div class="menu-item"><span class="name">Pork Fried Rice</span><span class="price">$4.80</span></div>
+          <div class="menu-item"><span class="name" data-i18n="m-fr-veg">Vegetable Fried Rice</span><span class="price">$4.50</span></div>
+          <div class="menu-item"><span class="name" data-i18n="m-fr-beef">Beef Fried Rice</span><span class="price">$4.80</span></div>
+          <div class="menu-item"><span class="name" data-i18n="m-fr-chk">Chicken Fried Rice</span><span class="price">$4.80</span></div>
+          <div class="menu-item"><span class="name" data-i18n="m-fr-shr">Shrimp Fried Rice</span><span class="price">$4.95</span></div>
+          <div class="menu-item"><span class="name" data-i18n="m-fr-pork">Pork Fried Rice</span><span class="price">$4.80</span></div>
         </div>
       </details>
 
       <details class="menu-cat">
-        <summary>Noodles &amp; Lo Mein</summary>
+        <summary data-i18n="cat-lo">Noodles &amp; Lo Mein</summary>
         <div class="items">
-          <div class="menu-item"><span class="name">Chicken Lo Mein</span><span class="price">$9.84</span></div>
-          <div class="menu-item"><span class="name">Shrimp Lo Mein</span><span class="price">$10.60</span></div>
-          <div class="menu-item"><span class="name">Beef Lo Mein</span><span class="price">$9.84</span></div>
-          <div class="menu-item"><span class="name">Pork Lo Mein</span><span class="price">$9.84</span></div>
+          <div class="menu-item"><span class="name" data-i18n="m-lo-chk">Chicken Lo Mein</span><span class="price">$9.84</span></div>
+          <div class="menu-item"><span class="name" data-i18n="m-lo-shr">Shrimp Lo Mein</span><span class="price">$10.60</span></div>
+          <div class="menu-item"><span class="name" data-i18n="m-lo-beef">Beef Lo Mein</span><span class="price">$9.84</span></div>
+          <div class="menu-item"><span class="name" data-i18n="m-lo-pork">Pork Lo Mein</span><span class="price">$9.84</span></div>
         </div>
       </details>
 
       <details class="menu-cat">
-        <summary>Special Suggestions</summary>
+        <summary data-i18n="cat-spec">Special Suggestions</summary>
         <div class="items">
-          <div class="menu-item">
-            <span class="name">Gai Kow <span class="desc">Breaded chicken breast with Chinese vegetables</span></span>
-            <span class="price">$9.50</span>
-          </div>
-          <div class="menu-item">
-            <span class="name">Almond Boneless Chicken <span class="desc">Crispy chicken in sweet almond sauce</span></span>
-            <span class="price">—</span>
-          </div>
-          <div class="menu-item">
-            <span class="name">Sweet &amp; Sour Chicken</span>
-            <span class="price">—</span>
-          </div>
-          <div class="menu-item">
-            <span class="name">Fried Shrimp Chinese Style with Plum Sauce</span>
-            <span class="price">$7.50</span>
-          </div>
+          <div class="menu-item"><span class="name" data-i18n="m-gai">Gai Kow</span><span class="desc" data-i18n="d-gai">Breaded chicken breast with Chinese vegetables</span><span class="price">$9.50</span></div>
+          <div class="menu-item"><span class="name" data-i18n="m-almond">Almond Boneless Chicken</span><span class="desc" data-i18n="d-almond">Crispy chicken in sweet almond sauce</span><span class="price">—</span></div>
+          <div class="menu-item"><span class="name" data-i18n="m-ss">Sweet &amp; Sour Chicken</span><span class="price">—</span></div>
+          <div class="menu-item"><span class="name" data-i18n="m-shr-plum">Fried Shrimp Chinese Style with Plum Sauce</span><span class="price">$7.50</span></div>
         </div>
       </details>
 
       <details class="menu-cat">
-        <summary>Combination Plates</summary>
+        <summary data-i18n="cat-combo">Combination Plates</summary>
         <div class="items">
-          <div class="menu-item"><span class="name">Pepper Steak</span><span class="price">$11.00</span></div>
-          <div class="menu-item"><span class="name">Broccoli Chicken</span><span class="price">$8.00</span></div>
-          <div class="menu-item"><span class="name">Chicken &amp; Snow Peas</span><span class="price">—</span></div>
-          <div class="menu-item"><span class="name">Shrimp with Snow Peas</span><span class="price">—</span></div>
+          <div class="menu-item"><span class="name" data-i18n="m-pepper">Pepper Steak</span><span class="price">$11.00</span></div>
+          <div class="menu-item"><span class="name" data-i18n="m-broccoli">Broccoli Chicken</span><span class="price">$8.00</span></div>
+          <div class="menu-item"><span class="name" data-i18n="m-snowchk">Chicken &amp; Snow Peas</span><span class="price">—</span></div>
+          <div class="menu-item"><span class="name" data-i18n="m-snowshr">Shrimp with Snow Peas</span><span class="price">—</span></div>
         </div>
       </details>
     </div>
 
-    <p class="menu-callout"><strong>Pro tip:</strong> Most combination dinners feed <strong>two</strong>. Customers order one plate and split — generous portions are part of the tradition.</p>
+    <p class="menu-callout"><strong data-i18n="tipH">Pro tip:</strong> <span data-i18n="tipBody">Most combination dinners feed two. Customers order one plate and split — generous portions are part of the tradition.</span></p>
   </section>
 
-  <!-- ============== STORY ============== -->
   <section aria-labelledby="story-heading">
-    <h2 id="story-heading">Our story</h2>
-    <p class="lede">A family kitchen that's been feeding Dearborn since around 1957.</p>
+    <h2 id="story-heading" data-i18n="storyH">Our story</h2>
+    <p class="lede" data-i18n="storyLede">A family kitchen that's been feeding Dearborn since around 1957.</p>
     <div class="story">
-      <p>Lim's Garden has been a quiet fixture on Carlysle Street for nearly seventy years. Multiple generations have worked the kitchen, and many of our regulars have been eating here longer than some of us have been alive. The menu hasn't changed much — and that's the point.</p>
-      <p>We cook family-style Cantonese and Chinese-American comfort food. Generous portions, fresh ingredients, no shortcuts. Most combination dinners feed two people. Our fried rice is the kind people drive across town for.</p>
-      <p>We're takeout only — call ahead, swing by, and your order will be hot and waiting. Cash and card both fine.</p>
-      <p class="quote">"Consistent high quality and value for generations!"<br>— A next-door neighbor, since the early '90s</p>
+      <p data-i18n="story1">Lim's Garden has been a quiet fixture on Carlysle Street for nearly seventy years. Multiple generations have worked the kitchen, and many of our regulars have been eating here longer than some of us have been alive. The menu hasn't changed much — and that's the point.</p>
+      <p data-i18n="story2">We cook family-style Cantonese and Chinese-American comfort food. Generous portions, fresh ingredients, no shortcuts. Most combination dinners feed two people. Our fried rice is the kind people drive across town for.</p>
+      <p data-i18n="story3">We're takeout only — call ahead, swing by, and your order will be hot and waiting. Cash and card both fine.</p>
+      <p class="quote" data-i18n="storyQuote">"Consistent high quality and value for generations!"<br><span data-i18n="storyWho">— A next-door neighbor, since the early '90s</span></p>
     </div>
   </section>
 
-  <!-- ============== PHOTOS (PLACEHOLDERS) ============== -->
   <section aria-labelledby="photos-heading">
-    <h2 id="photos-heading">Photos</h2>
-    <p class="lede">Photos coming soon — a small shoot of the kitchen, signature dishes, and the storefront.</p>
+    <h2 id="photos-heading" data-i18n="photoH">Photos</h2>
+    <p class="lede" data-i18n="photoLede">Photos coming soon — a small shoot of the kitchen, signature dishes, and the storefront.</p>
     <div class="gallery" role="list">
-      <div class="tile" role="listitem">[Photo: Storefront &amp; sign]<span class="ph-label">Placeholder</span></div>
-      <div class="tile" role="listitem">[Photo: Crab rangoon close-up]<span class="ph-label">Placeholder</span></div>
-      <div class="tile" role="listitem">[Photo: Fried rice plate]<span class="ph-label">Placeholder</span></div>
-      <div class="tile" role="listitem">[Photo: Almond boneless chicken]<span class="ph-label">Placeholder</span></div>
-      <div class="tile" role="listitem">[Photo: Wonton soup bowl]<span class="ph-label">Placeholder</span></div>
-      <div class="tile" role="listitem">[Photo: Takeout boxes ready]<span class="ph-label">Placeholder</span></div>
+      <div class="tile" role="listitem" data-i18n="t-1">[Photo: Storefront &amp; sign]<span class="ph-label">Placeholder</span></div>
+      <div class="tile" role="listitem" data-i18n="t-2">[Photo: Crab rangoon close-up]<span class="ph-label">Placeholder</span></div>
+      <div class="tile" role="listitem" data-i18n="t-3">[Photo: Fried rice plate]<span class="ph-label">Placeholder</span></div>
+      <div class="tile" role="listitem" data-i18n="t-4">[Photo: Almond boneless chicken]<span class="ph-label">Placeholder</span></div>
+      <div class="tile" role="listitem" data-i18n="t-5">[Photo: Wonton soup bowl]<span class="ph-label">Placeholder</span></div>
+      <div class="tile" role="listitem" data-i18n="t-6">[Photo: Takeout boxes ready]<span class="ph-label">Placeholder</span></div>
     </div>
   </section>
 
-  <!-- ============== REVIEWS ============== -->
   <section aria-labelledby="reviews-heading">
-    <h2 id="reviews-heading">What people say</h2>
-    <p class="lede">A few words from people who come back every week.</p>
+    <h2 id="reviews-heading" data-i18n="revH">What people say</h2>
+    <p class="lede" data-i18n="revLede">A few words from people who come back every week.</p>
 
     <div class="review">
       <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
-      <p class="quote">"Over proportioned, ALWAYS fresh, and by far the best fried rice ever."</p>
-      <div class="who">— Yelp highlight</div>
-      <div class="review-source">Yelp · 3.6★ over 58 reviews</div>
+      <p class="quote" data-i18n="r1">"Over proportioned, ALWAYS fresh, and by far the best fried rice ever."</p>
+      <div class="who" data-i18n="r1w">— Yelp highlight</div>
+      <div class="review-source" data-i18n="r1s">Yelp · 3.6★ over 58 reviews</div>
     </div>
 
     <div class="review">
       <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
-      <p class="quote">"It's a very small family business, so I give them grace there. Everything is fresh and delicious!"</p>
-      <div class="who">— Eric M.</div>
-      <div class="review-source">MapQuest · 3.5★ over 57 reviews</div>
+      <p class="quote" data-i18n="r2">"It's a very small family business, so I give them grace there. Everything is fresh and delicious!"</p>
+      <div class="who" data-i18n="r2w">— Eric M.</div>
+      <div class="review-source" data-i18n="r2s">MapQuest · 3.5★ over 57 reviews</div>
     </div>
 
     <div class="review">
       <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
-      <p class="quote">"If you want Chinese food, try Lim's Garden, they are the best. The crab cakes are wonderful. The wonton soup is the best."</p>
-      <div class="who">— Brent B., Fort Myers FL</div>
-      <div class="review-source">TripAdvisor · 3.9★ over 14 reviews</div>
+      <p class="quote" data-i18n="r3">"If you want Chinese food, try Lim's Garden, they are the best. The crab cakes are wonderful. The wonton soup is the best."</p>
+      <div class="who" data-i18n="r3w">— Brent B., Fort Myers FL</div>
+      <div class="review-source" data-i18n="r3s">TripAdvisor · 3.9★ over 14 reviews</div>
     </div>
   </section>
 
-  <!-- ============== LOCATION ============== -->
   <section id="location" aria-labelledby="location-heading">
-    <h2 id="location-heading">Find us</h2>
-    <p class="lede">Easy parking in the strip-mall lot. Pickup at the side window.</p>
+    <h2 id="location-heading" data-i18n="locH">Find us</h2>
+    <p class="lede" data-i18n="locLede">Easy parking in the strip-mall lot. Pickup at the side window.</p>
     <div class="map-wrap">
-      <iframe
-        title="Map to Lim's Garden"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
+      <iframe title="Map to Lim's Garden" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
         src="https://www.google.com/maps?q=20001+Carlysle+St+Dearborn+MI+48124&output=embed"></iframe>
       <div class="loc-info">
-        <strong>Lim's Garden</strong><br>
+        <strong>Lim&rsquo;s Garden · <span>林园</span></strong><br>
         20001 Carlysle St<br>
         Dearborn, MI 48124<br>
         <a href="tel:+13135634393">📞 (313) 563-4393</a>
@@ -646,38 +595,37 @@ footer a { color: var(--c-muted); }
     </div>
   </section>
 
-  <!-- ============== CONTACT ============== -->
   <section id="contact" aria-labelledby="contact-heading">
-    <h2 id="contact-heading">Call to order</h2>
-    <p class="lede">Tap to dial. Tell us what you want and when you'll be there.</p>
+    <h2 id="contact-heading" data-i18n="contactH">Call to order</h2>
+    <p class="lede" data-i18n="contactLede">Tap to dial. Tell us what you want and when you'll be there.</p>
     <div class="cta-row">
-      <a class="btn btn-primary" href="tel:+13135634393"><span class="ico">📞</span> (313) 563-4393</a>
-      <a class="btn btn-gold" href="https://m.uber.com/ul/?dropoff%5Blatitude%5D=42.28424&dropoff%5Blongitude%5D=-83.23328&dropoff%5Bnickname%5D=Lim%27s+Garden&dropoff%5Bformatted_address%5D=20001+Carlysle+St+Dearborn+MI+48124" target="_blank" rel="noopener"><span class="ico">🛵</span> Uber Eats</a>
+      <a class="btn btn-primary" href="tel:+13135634393"><span class="ico">📞</span> <span data-i18n="ctaCall">(313) 563-4393</span></a>
+      <a class="btn btn-gold" href="https://m.uber.com/ul/?dropoff%5Blatitude%5D=42.28424&dropoff%5Blongitude%5D=-83.23328&dropoff%5Bnickname%5D=Lim%27s+Garden&dropoff%5Bformatted_address%5D=20001+Carlysle+St+Dearborn+MI+48124" target="_blank" rel="noopener"><span class="ico">🛵</span> <span data-i18n="ctaUber">Uber Eats</span></a>
     </div>
-    <p class="note">No email or website form on purpose — pick up the phone, we're usually right there.</p>
+    <p class="note" data-i18n="contactNote">No email or website form on purpose — pick up the phone, we're usually right there.</p>
   </section>
 
-  <!-- ============== PITCH NOTE (only visible on this v1) ============== -->
   <aside class="pitch-note" aria-label="Draft note">
-    <strong>Draft v1 — for owner review.</strong> Photos are placeholders, menu shows representative items (some prices still to verify in-house). Story and reviews are real but short. Open this on a phone to see the real target experience.
+    <strong data-i18n="draftH">Draft v1 — for owner review.</strong>
+    <span data-i18n="draftB">Photos are placeholders, menu shows representative items (some prices still to verify in-house). Story and reviews are real but short. Open this on a phone to see the real target experience. Tap 中文 to switch the whole page to Mandarin.</span>
   </aside>
 
 </main>
 
 <footer>
-  <p>Lim&rsquo;s Garden · 20001 Carlysle St, Dearborn, MI 48124 · (313) 563-4393</p>
-  <p>© <span id="yr">2026</span> Lim&rsquo;s Garden · Draft website for owner review</p>
+  <p>Lim&rsquo;s Garden · 林园 · 20001 Carlysle St, Dearborn, MI 48124 · (313) 563-4393</p>
+  <p>© <span id="yr">2026</span> · Draft website for owner review</p>
 </footer>
 
 <script>
-// Highlight today + show "open now / closed" badge
+/* ===========================================================
+   Lim's Garden v1 — interactions
+   - Highlight today's hours
+   - Open/closed badge
+   - English ⇄ Mandarin switcher
+   =========================================================== */
 (function () {
-  var DOW = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  var now = new Date();
-  var todayName = DOW[now.getDay()];
-  var hour = now.getHours();
-  // Default hours per our research (Mon closed, Sun 4–8, Tue–Sat 12–8).
-  // These get flagged in the brief as owner-confirmation needed.
+  var DOW_EN = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   var openRanges = {
     Sunday:    [16, 20],
     Tuesday:   [12, 20],
@@ -686,28 +634,185 @@ footer a { color: var(--c-muted); }
     Friday:    [12, 20],
     Saturday:  [12, 20]
   };
-  var status = document.getElementById('open-status');
-  var rows = document.querySelectorAll('#hours-table tr');
-  rows.forEach(function (row) {
-    var name = row.querySelector('th').textContent.trim();
-    if (name === todayName) row.classList.add('today');
-  });
-  if (openRanges[todayName]) {
+  function setToday(now) {
+    now = now || new Date();
+    var todayName = DOW_EN[now.getDay()];
+    var hour = now.getHours();
+    document.querySelectorAll('#hours-table tr').forEach(function (row) {
+      if (row.querySelector('th').textContent.trim() === todayName) row.classList.add('today');
+    });
+    var status = document.getElementById('open-status');
     var range = openRanges[todayName];
-    var openNow = hour >= range[0] && hour < range[1];
-    if (openNow) {
-      var until = range[1] > 12 ? ((range[1] - 12) + ' PM') : (range[1] + ' AM');
-      status.textContent = 'Open now · until ' + until;
-    } else if (hour < range[0]) {
-      var from = range[0] > 12 ? ((range[0] - 12) + ' PM') : (range[0] + ' AM');
-      status.textContent = 'Closed · opens at ' + from + ' today';
+    if (range) {
+      var openNow = hour >= range[0] && hour < range[1];
+      if (openNow) {
+        var until = range[1] > 12 ? ((range[1] - 12) + ' PM') : (range[1] + ' AM');
+        status.textContent = 'Open now · until ' + until;
+      } else if (hour < range[0]) {
+        var from = range[0] > 12 ? ((range[0] - 12) + ' PM') : (range[0] + ' AM');
+        status.textContent = 'Closed · opens at ' + from + ' today';
+      } else {
+        status.textContent = 'Closed for today';
+      }
     } else {
-      status.textContent = 'Closed for today';
+      status.textContent = 'Closed today (Monday)';
     }
-  } else {
-    status.textContent = 'Closed today (Monday)';
+    document.getElementById('yr').textContent = now.getFullYear();
+    if (status.dataset.langEn) status.textContent = status.dataset[document.body.dataset.lang === 'zh' ? 'langZh' : 'langEn'];
   }
-  document.getElementById('yr').textContent = now.getFullYear();
+
+  /* ---------- i18n: English ⇄ Mandarin (Simplified) ---------- */
+  var DOW_ZH = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+  var I18N = {
+    en: {
+      barPhone: '📞 (313) 563-4393 · Takeout only',
+      barCta: 'Order now →',
+      heroBadge: 'Family-run · Dearborn, MI · Est. ~1957',
+      heroTagline: 'A neighborhood Chinese kitchen, takeout only, serving Dearborn for nearly seventy years.',
+      heroMeta1: '3.6★ Yelp · 58 reviews',
+      heroMeta2: '#1 Chinese in Dearborn',
+      heroMeta3: 'Family-run',
+      heroStatus: { open: 'Open now · until {t}', openAt: 'Closed · opens at {t} today', closedDay: 'Closed for today', closedMon: 'Closed today (Monday)' },
+      orderH: 'Order takeout', orderLede: 'Call ahead — your order will be hot and ready when you arrive.',
+      ctaCall: 'Call (313) 563-4393', ctaUber: 'Uber Eats', ctaDir: 'Directions',
+      orderNote: 'No indoor seating · Takeout only · Cash & card accepted',
+      hoursH: 'Hours', hoursLede: 'Closed Mondays. Closed for the major holidays — call to confirm.',
+      'dow-sun':'Sunday','dow-mon':'Monday','dow-tue':'Tuesday','dow-wed':'Wednesday','dow-thu':'Thursday','dow-fri':'Friday','dow-sat':'Saturday',
+      closed: 'Closed',
+      hoursNote: 'Hours may vary on holidays. Please call to confirm.',
+      menuH: 'Menu', menuLede: 'A few of our most-loved dishes. Full menu available in-house and over the phone.',
+      'cat-app':'Appetizers & Soup', 'cat-fried':'Fried Rice', 'cat-lo':'Noodles & Lo Mein', 'cat-spec':'Special Suggestions', 'cat-combo':'Combination Plates',
+      'm-rangoon':'Crab Rangoon (4)','d-rangoon':'Crispy wontons, sweet & savory',
+      'm-wonton':'Wonton Soup','d-wonton':'House favorite — light, fresh broth',
+      'm-eggroll':'Egg Rolls (2)','m-hotsour':'Hot & Sour Soup',
+      'm-fr-veg':'Vegetable Fried Rice','m-fr-beef':'Beef Fried Rice','m-fr-chk':'Chicken Fried Rice','m-fr-shr':'Shrimp Fried Rice','m-fr-pork':'Pork Fried Rice',
+      'm-lo-chk':'Chicken Lo Mein','m-lo-shr':'Shrimp Lo Mein','m-lo-beef':'Beef Lo Mein','m-lo-pork':'Pork Lo Mein',
+      'm-gai':'Gai Kow','d-gai':'Breaded chicken breast with Chinese vegetables',
+      'm-almond':'Almond Boneless Chicken','d-almond':'Crispy chicken in sweet almond sauce',
+      'm-ss':'Sweet & Sour Chicken','m-shr-plum':'Fried Shrimp Chinese Style with Plum Sauce',
+      'm-pepper':'Pepper Steak','m-broccoli':'Broccoli Chicken','m-snowchk':'Chicken & Snow Peas','m-snowshr':'Shrimp with Snow Peas',
+      tipH: 'Pro tip:', tipBody: 'Most combination dinners feed two. Customers order one plate and split — generous portions are part of the tradition.',
+      storyH: 'Our story', storyLede: "A family kitchen that's been feeding Dearborn since around 1957.",
+      story1: "Lim's Garden has been a quiet fixture on Carlysle Street for nearly seventy years. Multiple generations have worked the kitchen, and many of our regulars have been eating here longer than some of us have been alive. The menu hasn't changed much — and that's the point.",
+      story2: 'We cook family-style Cantonese and Chinese-American comfort food. Generous portions, fresh ingredients, no shortcuts. Most combination dinners feed two people. Our fried rice is the kind people drive across town for.',
+      story3: "We're takeout only — call ahead, swing by, and your order will be hot and waiting. Cash and card both fine.",
+      storyQuote: '"Consistent high quality and value for generations!"',
+      storyWho: "— A next-door neighbor, since the early '90s",
+      photoH: 'Photos', photoLede: 'Photos coming soon — a small shoot of the kitchen, signature dishes, and the storefront.',
+      't-1':'[Photo: Storefront & sign]','t-2':'[Photo: Crab rangoon close-up]','t-3':'[Photo: Fried rice plate]',
+      't-4':'[Photo: Almond boneless chicken]','t-5':'[Photo: Wonton soup]','t-6':'[Photo: Takeout boxes ready]',
+      revH: 'What people say', revLede: 'A few words from people who come back every week.',
+      r1: '"Over proportioned, ALWAYS fresh, and by far the best fried rice ever."', r1w: '— Yelp highlight', r1s: 'Yelp · 3.6★ over 58 reviews',
+      r2: '"It\'s a very small family business, so I give them grace there. Everything is fresh and delicious!"', r2w: '— Eric M.', r2s: 'MapQuest · 3.5★ over 57 reviews',
+      r3: '"If you want Chinese food, try Lim\'s Garden, they are the best. The crab cakes are wonderful. The wonton soup is the best."', r3w: '— Brent B., Fort Myers FL', r3s: 'TripAdvisor · 3.9★ over 14 reviews',
+      locH: 'Find us', locLede: 'Easy parking in the strip-mall lot. Pickup at the side window.',
+      contactH: 'Call to order', contactLede: 'Tap to dial. Tell us what you want and when you\'ll be there.',
+      contactNote: "No email or website form on purpose — pick up the phone, we're usually right there.",
+      draftH: 'Draft v1 — for owner review.',
+      draftB: 'Photos are placeholders, menu shows representative items (some prices still to verify in-house). Story and reviews are real but short. Open this on a phone to see the real target experience. Tap 中文 to switch the whole page to Mandarin.'
+    },
+    zh: {
+      barPhone: '📞 (313) 563-4393 · 仅限外带',
+      barCta: '立即点餐 →',
+      heroBadge: '家庭经营 · 密歇根州迪尔伯恩 · 始于约 1957 年',
+      heroTagline: '社区中式厨房,仅供外带,服务迪尔伯恩近七十年。',
+      heroMeta1: 'Yelp 3.6★ · 58 条评价',
+      heroMeta2: '迪尔伯恩中餐排行第一',
+      heroMeta3: '家庭经营',
+      heroStatus: { open: '营业中 · 营业至 {t}', openAt: '休息中 · 今日 {t} 开门', closedDay: '今日已结束营业', closedMon: '今日休息(周一)' },
+      orderH: '点 外 带', orderLede: '请提前来电,餐点将在您到达时新鲜出锅。',
+      ctaCall: '致电 (313) 563-4393', ctaUber: 'Uber Eats 外送', ctaDir: '导航前往',
+      orderNote: '不设堂食 · 仅限外带 · 接受现金及信用卡',
+      hoursH: '营业时间', hoursLede: '周一休息。节假日营业时间可能变动,请来电确认。',
+      'dow-sun':'星期日','dow-mon':'星期一','dow-tue':'星期二','dow-wed':'星期三','dow-thu':'星期四','dow-fri':'星期五','dow-sat':'星期六',
+      closed: '休息',
+      hoursNote: '节假日时间可能变化,请来电确认。',
+      menuH: '菜 单', menuLede: '本店最受欢迎的招牌菜。完整菜单请来店或致电查询。',
+      'cat-app':'小菜与汤品','cat-fried':'炒 饭','cat-lo':'面食与捞面','cat-spec':'招牌推荐','cat-combo':'套餐',
+      'm-rangoon':'炸蟹角(4 只)','d-rangoon':'外酥内嫩,香甜可口',
+      'm-wonton':'云吞汤','d-wonton':'本店招牌 · 清淡鲜美',
+      'm-eggroll':'春卷(2 条)','m-hotsour':'酸辣汤',
+      'm-fr-veg':'素炒饭','m-fr-beef':'牛肉炒饭','m-fr-chk':'鸡肉炒饭','m-fr-shr':'虾仁炒饭','m-fr-pork':'猪肉炒饭',
+      'm-lo-chk':'鸡肉捞面','m-lo-shr':'虾仁捞面','m-lo-beef':'牛肉捞面','m-lo-pork':'猪肉捞面',
+      'm-gai':'鸡 球','d-gai':'酥炸鸡胸配中式蔬菜',
+      'm-almond':'杏仁去骨鸡','d-almond':'酥脆鸡肉配香甜杏仁酱',
+      'm-ss':'糖醋鸡','m-shr-plum':'中式炸虾配梅子酱',
+      'm-pepper':'胡椒牛柳','m-broccoli':'西兰花鸡','m-snowchk':'雪豆鸡','m-snowshr':'雪豆虾',
+      tipH: '小贴士:', tipBody: '大多数套餐份量可供两人享用,点一份两人分食,是大份量的传统。',
+      storyH: '我们的故事', storyLede: '一家社区家庭厨房,自 1957 年起持续服务迪尔伯恩。',
+      story1: '林园在 Carlysle 街静静伫立了近七十年,数代人都在这间厨房工作,许多老顾客光顾的时间甚至比我们当中许多人的年纪还要久。菜单几乎没有变过,这正是我们的坚持。',
+      story2: '我们烹制家常粤菜与美式中餐。份量充足、食材新鲜、不走捷径。大多数套餐可供两人食用。我们的炒饭,值得专程驱车前往。',
+      story3: '仅供外带。请先致电预订,到店时餐点将热气腾腾等待您。现金与信用卡均可。',
+      storyQuote: '"品质稳定,代代相传的物超所值!"',
+      storyWho: '—— 自上世纪九十年代起的老街坊',
+      photoH: '店 铺 照 片', photoLede: '即将上新:厨房、招牌菜与店面的小型拍摄。',
+      't-1':'[照片:店面外观]','t-2':'[照片:炸蟹角特写]','t-3':'[照片:炒饭]',
+      't-4':'[照片:杏仁去骨鸡]','t-5':'[照片:云吞汤]','t-6':'[照片:打包好的外带盒]',
+      revH: '顾客评价', revLede: '一些每周必来的回头客的话。',
+      r1: '"份量超大,永远新鲜,绝对是最好的炒饭。"', r1w: '—— Yelp 精选评价', r1s: 'Yelp · 3.6★ · 58 条评价',
+      r2: '"这是个小本经营的家庭小店,所以我们愿意包容。一切都新鲜、好吃!"', r2w: '—— Eric M.', r2s: 'MapQuest · 3.5★ · 57 条评价',
+      r3: '"想吃中餐,就来林园,他们是最棒的。蟹饼很棒,云吞汤也是最好的。"', r3w: '—— Brent B., 佛罗里达州 Fort Myers', r3s: 'TripAdvisor · 3.9★ · 14 条评价',
+      locH: '找 到 我 们', locLede: '商场停车场方便停车,从侧窗取餐。',
+      contactH: '致电点餐', contactLede: '点击拨号,告诉我们您想吃什么、几点到。',
+      contactNote: '没有邮件或在线表单 —— 我们通常就在电话那头,请直接打过来。',
+      draftH: '草稿 v1 —— 待店主审阅。',
+      draftB: '照片为占位图,菜单仅展示部分菜品(部分价格需店内确认)。故事与评价均为真实摘录,内容已精简。请用手机打开查看真实体验效果。点击 English 可切回英文。'
+    }
+  };
+
+  function applyLang(lang) {
+    document.body.dataset.lang = lang;
+    document.documentElement.lang = (lang === 'zh') ? 'zh-Hans' : 'en';
+    document.querySelectorAll('.lang-btn').forEach(function (b) {
+      b.setAttribute('aria-pressed', b.dataset.setLang === lang ? 'true' : 'false');
+    });
+    var dict = I18N[lang];
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var key = el.dataset.i18n;
+      var val = dict[key];
+      if (typeof val !== 'string') return;
+      el.textContent = val;
+    });
+    // Replace day-of-week row labels in Mandarin
+    if (lang === 'zh') {
+      document.querySelectorAll('#hours-table tr th').forEach(function (th, i) {
+        th.textContent = DOW_ZH[i];
+      });
+      document.querySelector('#hours-table tr.closed td').textContent = dict.closed;
+    }
+    // Re-run open/closed badge with localized text
+    refreshStatus(lang);
+  }
+
+  function refreshStatus(lang) {
+    lang = lang || document.body.dataset.lang;
+    var dict = I18N[lang] || I18N.en;
+    var now = new Date();
+    var dow = now.getDay();
+    var hour = now.getHours();
+    var range = openRanges[DOW_EN[dow]];
+    var status = document.getElementById('open-status');
+    function fmt(h) { return h > 12 ? ('下午 ' + (h - 12)) : (h === 12 ? '下午 12' : '上午 ' + h); }
+    var msg;
+    if (range) {
+      if (hour >= range[0] && hour < range[1]) {
+        msg = dict.heroStatus.open.replace('{t}', fmt(range[1]));
+      } else if (hour < range[0]) {
+        msg = dict.heroStatus.openAt.replace('{t}', fmt(range[0]));
+      } else {
+        msg = dict.heroStatus.closedDay;
+      }
+    } else {
+      msg = dict.heroStatus.closedMon;
+    }
+    status.textContent = msg;
+  }
+
+  // Init
+  setToday();
+  document.querySelectorAll('.lang-btn').forEach(function (b) {
+    b.addEventListener('click', function () { applyLang(b.dataset.setLang); });
+  });
 })();
 </script>
 
