@@ -652,36 +652,56 @@ footer { text-align: center; font-size: 12px; color: var(--c-muted); padding: 24
     // is considered "in view" when its top reaches roughly the middle of the visible area.
     const TOP_OFFSET = 130;
     const visible = new Map(); // idx -> intersectionRatio
+
+    function recompute() {
+      // Pick the section whose top is closest to (but not above) the TOP_OFFSET line,
+      // i.e. the section we're currently "in" while reading top-down.
+      const scrollY = window.scrollY || window.pageYOffset || 0;
+      let bestIdx = 0;
+      let bestTop = -Infinity;
+      sections.forEach((s) => {
+        const idx = parseInt(s.dataset.catIdx, 10);
+        const top = s.getBoundingClientRect().top; // viewport-relative
+        // A section is "current" if its top is <= TOP_OFFSET+1 (we've scrolled into it)
+        // and its bottom is > TOP_OFFSET (still has content on screen).
+        if (top <= TOP_OFFSET + 1 && (top + s.offsetHeight) > TOP_OFFSET) {
+          if (top > bestTop) { bestTop = top; bestIdx = idx; }
+        }
+      });
+      // If we're above all sections, bestIdx stays at 0.
+      // If we're below all sections, pick the last one.
+      if (bestTop === -Infinity) {
+        const last = sections[sections.length - 1];
+        const lr = last.getBoundingClientRect();
+        if (lr.bottom < window.innerHeight) bestIdx = parseInt(last.dataset.catIdx, 10);
+      }
+      setActiveChip(bestIdx);
+    }
+
     scrollSpyObserver = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
         const idx = parseInt(e.target.dataset.catIdx, 10);
         visible.set(idx, e.intersectionRatio);
       });
-      // Pick the section with the highest visible ratio; tiebreak by smaller idx
-      // (so scrolling down through section 3 → 4 the chip flips at the moment 4 takes over).
-      let bestIdx = -1, bestRatio = 0;
-      for (const [idx, ratio] of visible) {
-        if (ratio > bestRatio + 0.001 || (Math.abs(ratio - bestRatio) < 0.001 && idx > bestIdx && bestIdx >= 0)) {
-          bestIdx = idx; bestRatio = ratio;
-        } else if (bestIdx < 0 && ratio > 0) {
-          bestIdx = idx; bestRatio = ratio;
-        }
-      }
-      // Fallback: if nothing is intersecting enough, find the section nearest the top of viewport
-      if (bestIdx < 0) {
-        let topY = Infinity;
-        sections.forEach((s) => {
-          const r = s.getBoundingClientRect();
-          if (r.top < topY && r.bottom > TOP_OFFSET) { topY = r.top; bestIdx = parseInt(s.dataset.catIdx, 10); }
-        });
-      }
-      if (bestIdx >= 0) setActiveChip(bestIdx);
     }, {
       root: null,
-      rootMargin: `-${TOP_OFFSET}px 0px -50% 0px`,
-      threshold: [0, 0.01, 0.1, 0.25, 0.5, 0.75, 1],
+      rootMargin: `-${TOP_OFFSET}px 0px -40% 0px`,
+      threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
     });
     sections.forEach((s, i) => { s.dataset.catIdx = String(i); scrollSpyObserver.observe(s); });
+
+    // Safety net: recompute on every scroll, rAF-throttled. IO alone is flaky on
+    // instant-jumps and on some Android browsers.
+    let ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => { recompute(); ticking = false; });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    // Initial paint
+    setTimeout(recompute, 50);
   }
 
   /* ---------- Menu tiles ---------- */
