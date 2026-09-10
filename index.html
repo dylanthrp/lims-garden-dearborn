@@ -414,7 +414,7 @@ footer a { color: var(--c-muted); }
   <button type="button" class="lang-btn" data-set-lang="zh" aria-pressed="false">中文</button>
 </div>
 
-<a class="order-bar" href="#contact" aria-label="Skip to order options">
+<a class="order-bar" href="order.html" aria-label="Skip to order options">
   <span class="ph" data-i18n="barPhone">📞 (313) 563-4393 · Takeout only</span>
   <span class="cta" data-i18n="barCta">Order now →</span>
 </a>
@@ -445,11 +445,11 @@ footer a { color: var(--c-muted); }
     <h2 id="order-heading" data-i18n="orderH">Order takeout</h2>
     <p class="lede" data-i18n="orderLede">Call ahead — your order will be hot and ready when you arrive.</p>
     <div class="cta-row">
+      <a class="btn btn-gold" href="order.html"><span class="ico">🥡</span> <span data-i18n="ctaOrder">Order online →</span></a>
       <a class="btn btn-primary" href="tel:+13135634393"><span class="ico">📞</span> <span data-i18n="ctaCall">Call (313) 563-4393</span></a>
-      <a class="btn btn-gold" href="https://m.uber.com/ul/?dropoff%5Blatitude%5D=42.28424&dropoff%5Blongitude%5D=-83.23328&dropoff%5Bnickname%5D=Lim%27s+Garden&dropoff%5Bformatted_address%5D=20001+Carlysle+St+Dearborn+MI+48124" target="_blank" rel="noopener"><span class="ico">🛵</span> <span data-i18n="ctaUber">Uber Eats</span></a>
       <a class="btn btn-ghost" href="#location"><span class="ico">📍</span> <span data-i18n="ctaDir">Directions</span></a>
     </div>
-    <p class="note" data-i18n="orderNote">No indoor seating · Takeout only · Cash &amp; card accepted</p>
+    <p class="note" data-i18n="orderNote">No indoor seating · Takeout only · Pay online or cash on pickup</p>
   </section>
 
   <section aria-labelledby="hours-heading">
@@ -598,10 +598,10 @@ footer a { color: var(--c-muted); }
     <h2 id="contact-heading" data-i18n="contactH">Call to order</h2>
     <p class="lede" data-i18n="contactLede">Tap to dial. Tell us what you want and when you'll be there.</p>
     <div class="cta-row">
+      <a class="btn btn-gold" href="order.html"><span class="ico">🥡</span> <span data-i18n="ctaOrder">Order online →</span></a>
       <a class="btn btn-primary" href="tel:+13135634393"><span class="ico">📞</span> <span data-i18n="ctaCall">(313) 563-4393</span></a>
-      <a class="btn btn-gold" href="https://m.uber.com/ul/?dropoff%5Blatitude%5D=42.28424&dropoff%5Blongitude%5D=-83.23328&dropoff%5Bnickname%5D=Lim%27s+Garden&dropoff%5Bformatted_address%5D=20001+Carlysle+St+Dearborn+MI+48124" target="_blank" rel="noopener"><span class="ico">🛵</span> <span data-i18n="ctaUber">Uber Eats</span></a>
     </div>
-    <p class="note" data-i18n="contactNote">No email or website form on purpose — pick up the phone, we're usually right there.</p>
+    <p class="note" data-i18n="contactNote">Or skip the call and order online — pickup at the side window.</p>
   </section>
 
   <aside class="pitch-note" aria-label="Draft note">
@@ -671,9 +671,9 @@ footer a { color: var(--c-muted); }
       heroMeta2: '#1 Chinese in Dearborn',
       heroMeta3: 'Family-run',
       heroStatus: { open: 'Open now · until {t}', openAt: 'Closed · opens at {t} today', closedDay: 'Closed for today', closedMon: 'Closed today (Monday)' },
-      orderH: 'Order takeout', orderLede: 'Call ahead — your order will be hot and ready when you arrive.',
-      ctaCall: 'Call (313) 563-4393', ctaUber: 'Uber Eats', ctaDir: 'Directions',
-      orderNote: 'No indoor seating · Takeout only · Cash & card accepted',
+      orderH: 'Order takeout', orderLede: 'Order online for pickup, or call ahead — your food will be hot and ready when you arrive.',
+      ctaOrder: 'Order online →', ctaCall: 'Call (313) 563-4393', ctaDir: 'Directions',
+      orderNote: 'No indoor seating · Takeout only · Pay online or cash on pickup',
       hoursH: 'Hours', hoursLede: 'Closed Mondays. Closed for the major holidays — call to confirm.',
       'dow-sun':'Sunday','dow-mon':'Monday','dow-tue':'Tuesday','dow-wed':'Wednesday','dow-thu':'Thursday','dow-fri':'Friday','dow-sat':'Saturday',
       closed: 'Closed',
@@ -718,9 +718,9 @@ footer a { color: var(--c-muted); }
       heroMeta2: '迪尔伯恩中餐排行第一',
       heroMeta3: '家庭经营',
       heroStatus: { open: '营业中 · 营业至 {t}', openAt: '休息中 · 今日 {t} 开门', closedDay: '今日已结束营业', closedMon: '今日休息(周一)' },
-      orderH: '点 外 带', orderLede: '请提前来电,餐点将在您到达时新鲜出锅。',
-      ctaCall: '致电 (313) 563-4393', ctaUber: 'Uber Eats 外送', ctaDir: '导航前往',
-      orderNote: '不设堂食 · 仅限外带 · 接受现金及信用卡',
+      orderH: '点 外 带', orderLede: '在线下单到店自取,或提前来电 — 餐点将在您到达时新鲜出锅。',
+      ctaOrder: '在线点餐 →', ctaCall: '致电 (313) 563-4393', ctaDir: '导航前往',
+      orderNote: '不设堂食 · 仅限外带 · 在线支付或到店付现',
       hoursH: '营业时间', hoursLede: '周一休息。节假日营业时间可能变动,请来电确认。',
       'dow-sun':'星期日','dow-mon':'星期一','dow-tue':'星期二','dow-wed':'星期三','dow-thu':'星期四','dow-fri':'星期五','dow-sat':'星期六',
       closed: '休息',
