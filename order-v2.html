@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#7a1218" />
+<meta name="description" content="Order takeout from Lim's Garden — Cantonese and Chinese-American comfort food in Dearborn, MI. Pay online or cash on pickup." />
+<meta property="og:title" content="Order takeout — Lim's Garden" />
+<meta property="og:description" content="Pickup only · 20001 Carlysle St, Dearborn, MI · Pay online or cash." />
+<title>Order takeout · Lim's Garden · Dearborn, MI</title>
+<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%237a1218'/><text x='50%25' y='54%25' text-anchor='middle' font-family='serif' font-size='34' fill='%23f1c659' font-weight='700'>L</text></svg>" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "Lim's Garden",
+  "alternateName": "林园",
+  "address": { "@type": "PostalAddress", "streetAddress": "20001 Carlysle St", "addressLocality": "Dearborn", "addressRegion": "MI", "postalCode": "48124-3803", "addressCountry": "US" },
+  "telephone": "+1-313-563-4393",
+  "servesCuisine": ["Chinese", "Cantonese", "Asian"]
+}
+</script>
+
+<style>
+/* ===========================================================
+   Lim's Garden — order-v2 (McDonald's-style)
+   - Horizontal scroll category chips at top
+   - 2-column photo tile grid (placeholders until photo shoot)
+   - Big red + Add buttons on each tile
+   - Sticky bottom cart bar with expand-to-review sheet
+   - English ⇄ Mandarin
+   =========================================================== */
+:root {
+  --c-red: #7a1218;
+  --c-red-deep: #5a0d12;
+  --c-gold: #f1c659;
+  --c-cream: #fbf6ec;
+  --c-cream-2: #f4ead4;
+  --c-ink: #1a1410;
+  --c-line: #e6d9bd;
+  --c-muted: #6a5d4f;
+  --r: 14px;
+  --shadow: 0 1px 0 rgba(0,0,0,.04), 0 8px 24px -12px rgba(122,18,24,.18);
+  --max: 720px;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  background: var(--c-cream);
+  color: var(--c-ink);
+  line-height: 1.45;
+  font-size: 16px;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--c-red-deep); }
+button { font: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+
+/* Language toggle */
+.lang-bar {
+  display: flex; justify-content: flex-end; gap: 6px;
+  padding: 6px 12px;
+  padding-top: max(6px, env(safe-area-inset-top));
+  background: var(--c-cream-2);
+  border-bottom: 1px solid var(--c-line);
+  position: sticky; top: 0; z-index: 60;
+}
+.lang-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--c-muted);
+  padding: 4px 12px;
+  font-size: 13px; font-weight: 600;
+  border-radius: 999px;
+  cursor: pointer;
+  min-height: 32px;
+}
+.lang-btn[aria-pressed="true"] {
+  background: var(--c-red);
+  color: #fff;
+  border-color: var(--c-red-deep);
+}
+
+/* Top bar with restaurant name + back */
+.top-bar {
+  position: sticky; top: 44px; z-index: 50;
+  background: var(--c-red); color: #fff;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 14px;
+  font-weight: 600; font-size: 15px;
+  border-bottom: 1px solid var(--c-red-deep);
+}
+.top-bar a.back { color: #fff; text-decoration: none; opacity: .9; font-size: 13px; }
+
+/* Hero — compact */
+.hero {
+  background: linear-gradient(180deg, rgba(122,18,24,.92), rgba(90,13,18,.96)), var(--c-red);
+  color: #fff;
+  padding: 18px 16px 14px;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+}
+.hero .pickup {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px;
+  background: rgba(0,0,0,.18); border: 1px solid rgba(241,198,89,.4);
+  padding: 4px 10px; border-radius: 999px;
+}
+.hero .pickup .dot { width: 7px; height: 7px; border-radius: 50%; background: #6dd06d; }
+.hero h1 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 26px; line-height: 1.1; margin: 8px 0 4px;
+  font-weight: 700;
+}
+.hero p { margin: 0; font-size: 13px; color: #f9e8c1; }
+
+/* Category chip strip — horizontal scroll */
+.chips {
+  position: sticky; top: 92px; z-index: 40;
+  background: var(--c-cream);
+  border-bottom: 1px solid var(--c-line);
+  padding: 10px 14px 12px;
+  display: flex; gap: 8px;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.chips::-webkit-scrollbar { display: none; }
+.chip {
+  flex-shrink: 0;
+  background: #fff;
+  border: 1px solid var(--c-line);
+  color: var(--c-ink);
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-size: 14px; font-weight: 600;
+  white-space: nowrap;
+  min-height: 38px;
+}
+.chip[aria-pressed="true"] {
+  background: var(--c-red); color: #fff; border-color: var(--c-red-deep);
+}
+.chip:active { transform: translateY(1px); }
+
+/* Section heading for each category */
+.cat-section { padding: 16px 14px 0; }
+.cat-section h2 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 22px;
+  color: var(--c-red-deep);
+  margin: 0 0 10px;
+  font-weight: 700;
+}
+
+/* Tile grid */
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+/* Photo tile */
+.tile {
+  background: #fff;
+  border: 1px solid var(--c-line);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+.tile .ph {
+  aspect-ratio: 1 / 1;
+  background:
+    linear-gradient(135deg, var(--c-cream-2), #efe2c4);
+  border-bottom: 1px dashed #c8b48c;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.tile .ph .ph-tag {
+  position: absolute;
+  bottom: 6px; right: 6px;
+  background: rgba(255,255,255,.92);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px; font-weight: 700; color: #6a5a3c;
+  letter-spacing: .06em; text-transform: uppercase;
+}
+.tile .body { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 8px; }
+.tile .name { font-weight: 700; font-size: 15px; line-height: 1.2; }
+.tile .desc { font-size: 12px; color: var(--c-muted); min-height: 1em; }
+.tile .row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.tile .price { font-weight: 800; color: var(--c-red); font-variant-numeric: tabular-nums; font-size: 16px; }
+
+/* + button / qty stepper */
+.add-btn {
+  background: #fff;
+  color: var(--c-red);
+  border: 1.5px solid var(--c-red);
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 14px;
+  padding: 7px 14px;
+  min-height: 36px;
+  min-width: 64px;
+  letter-spacing: .02em;
+}
+.add-btn:active { transform: translateY(1px); }
+.tile .qty {
+  display: inline-flex; align-items: center;
+  border: 1.5px solid var(--c-red);
+  border-radius: 999px;
+  background: #fff;
+  overflow: hidden;
+}
+.tile .qty button {
+  width: 34px; height: 34px;
+  border: 0; background: transparent;
+  font-size: 18px; font-weight: 700; color: var(--c-red-deep);
+  padding: 0;
+}
+.tile .qty .count {
+  min-width: 22px; text-align: center;
+  font-weight: 800; font-variant-numeric: tabular-nums;
+}
+.tile.unpriced .add-btn { display: none; }
+.tile.unpriced .qty { display: none; }
+.tile.unpriced .ask {
+  font-size: 11px; color: var(--c-muted); font-style: italic;
+}
+
+/* Bottom sticky cart bar */
+.cart-bar {
+  position: fixed; left: 0; right: 0; bottom: 0;
+  background: #fff; border-top: 1px solid var(--c-line);
+  padding: 10px 14px;
+  padding-bottom: max(10px, env(safe-area-inset-bottom));
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; z-index: 45;
+  box-shadow: 0 -4px 20px rgba(0,0,0,.08);
+}
+.cart-bar .info { line-height: 1.15; flex: 1; min-width: 0; cursor: pointer; }
+.cart-bar .info small {
+  display: block; font-size: 11px; color: var(--c-muted); margin-bottom: 2px;
+}
+.cart-bar .total { font-weight: 800; font-size: 18px; color: var(--c-red-deep); }
+.cart-bar .btn {
+  background: var(--c-red); color: #fff;
+  border: 0; padding: 13px 22px;
+  border-radius: 999px; font-weight: 800;
+  min-height: 44px; font-size: 15px;
+  letter-spacing: .01em;
+}
+.cart-bar .btn:disabled { opacity: .4; }
+
+/* Bottom sheet for cart review */
+.sheet-back {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.45);
+  z-index: 70;
+  opacity: 0; pointer-events: none;
+  transition: opacity .15s ease;
+}
+.sheet-back.open { opacity: 1; pointer-events: auto; }
+.sheet {
+  position: fixed; left: 0; right: 0; bottom: 0;
+  background: #fff;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  z-index: 71;
+  transform: translateY(100%);
+  transition: transform .2s ease;
+  max-height: 80vh;
+  display: flex; flex-direction: column;
+}
+.sheet.open { transform: translateY(0); }
+.sheet-head {
+  padding: 14px 16px 10px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--c-line);
+}
+.sheet-head h3 {
+  margin: 0; font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 22px; color: var(--c-red-deep);
+}
+.sheet-head .close {
+  background: transparent; border: 0; font-size: 26px;
+  color: var(--c-muted); padding: 0; width: 32px; height: 32px;
+}
+.sheet-body { padding: 12px 16px; overflow-y: auto; }
+.sheet-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--c-line);
+}
+.sheet-row:last-child { border-bottom: 0; }
+.sheet-row .nm { flex: 1; min-width: 0; font-weight: 600; }
+.sheet-row .qty-mini {
+  display: inline-flex; align-items: center;
+  border: 1px solid var(--c-line); border-radius: 999px;
+}
+.sheet-row .qty-mini button {
+  width: 30px; height: 30px; border: 0; background: transparent;
+  font-size: 16px; font-weight: 700; color: var(--c-red-deep);
+}
+.sheet-row .qty-mini .n {
+  min-width: 22px; text-align: center; font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.sheet-row .pr {
+  font-weight: 700; color: var(--c-red);
+  font-variant-numeric: tabular-nums; min-width: 56px; text-align: right;
+}
+.sheet-empty { padding: 24px; text-align: center; color: var(--c-muted); }
+
+.sheet-foot {
+  padding: 14px 16px;
+  border-top: 1px solid var(--c-line);
+  background: #faf6ee;
+}
+.sheet-foot .totals { display: flex; flex-direction: column; gap: 4px; font-size: 14px; margin-bottom: 10px; }
+.sheet-foot .totals .row { display: flex; justify-content: space-between; }
+.sheet-foot .totals .row.big { font-size: 17px; font-weight: 800; color: var(--c-red-deep); }
+.sheet-foot .totals .muted { color: var(--c-muted); font-size: 12px; }
+.sheet-foot .btn-go {
+  width: 100%;
+  background: var(--c-red); color: #fff;
+  border: 0; padding: 14px;
+  border-radius: 12px; font-weight: 800;
+  font-size: 16px; min-height: 50px;
+  letter-spacing: .01em;
+}
+.sheet-foot .btn-go:disabled { opacity: .4; }
+
+/* Demo banner */
+.demo-banner {
+  margin: 18px 14px 0;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #fff8e6;
+  border: 1px solid #e8d18a;
+  font-size: 13px;
+  color: #5a4416;
+  line-height: 1.5;
+}
+.demo-banner strong { color: #3a2c0d; }
+.demo-banner .demo-pill {
+  display: inline-block;
+  background: var(--c-red);
+  color: #fff;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  margin-right: 6px;
+}
+
+footer { text-align: center; font-size: 12px; color: var(--c-muted); padding: 24px 14px 36px; }
+
+/* Larger viewports */
+@media (min-width: 560px) {
+  .tiles { grid-template-columns: repeat(3, 1fr); }
+  .hero h1 { font-size: 32px; }
+}
+@media (min-width: 720px) {
+  .tiles { grid-template-columns: repeat(4, 1fr); }
+  main { max-width: 960px; margin: 0 auto; }
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .sheet, .sheet-back { transition: none; }
+}
+</style>
+</head>
+<body data-lang="en">
+
+<div class="lang-bar" role="navigation" aria-label="Language">
+  <button type="button" class="lang-btn" data-set-lang="en" aria-pressed="true">English</button>
+  <button type="button" class="lang-btn" data-set-lang="zh" aria-pressed="false">中文</button>
+</div>
+
+<div class="top-bar">
+  <a class="back" href="./">← Back to menu</a>
+  <span data-i18n="topLabel">Order takeout</span>
+</div>
+
+<main>
+
+  <header class="hero">
+    <div class="pickup">
+      <span class="dot"></span>
+      <span data-i18n="pickupNote">Pickup only · 20001 Carlysle St</span>
+    </div>
+    <h1 data-i18n="heroH">Lim's Garden</h1>
+    <p data-i18n="heroP">Tap + to add items. Pay online or cash on pickup.</p>
+  </header>
+
+  <nav class="chips" aria-label="Categories" id="chips"></nav>
+
+  <div id="menu"></div>
+
+  <div class="demo-banner">
+    <span class="demo-pill" data-i18n="demoPill">DRAFT V2</span>
+    <span data-i18n="demoBody"><strong>Photos are placeholders.</strong> The final version will use real food photos taken at the restaurant. Try it: tap + to add items, then hit the red bar at the bottom to check out. Test card 4242 4242 4242 4242.</span>
+  </div>
+
+</main>
+
+<!-- Bottom cart bar -->
+<div class="cart-bar" id="cartBar">
+  <div class="info" id="cartInfo" role="button" tabindex="0">
+    <small data-i18n="itemsLabel">Items</small>
+    <div class="total"><span id="cartCount">0</span> · <span id="cartTotal">$0.00</span></div>
+  </div>
+  <button class="btn" id="goBtn" disabled data-i18n="goBtn">Checkout →</button>
+</div>
+
+<!-- Cart review sheet -->
+<div class="sheet-back" id="sheetBack"></div>
+<aside class="sheet" id="sheet" aria-label="Your order">
+  <div class="sheet-head">
+    <h3 data-i18n="sheetTitle">Your order</h3>
+    <button type="button" class="close" id="sheetClose" aria-label="Close">×</button>
+  </div>
+  <div class="sheet-body" id="sheetBody"></div>
+  <div class="sheet-foot">
+    <div class="totals">
+      <div class="row"><span data-i18n="subtotalLabel">Subtotal</span><span id="sheetSubtotal">$0.00</span></div>
+      <div class="row muted"><span data-i18n="processingLabel">Online payment processing (≈2.9% + $0.30)</span><span id="sheetProcessing">$0.00</span></div>
+      <div class="row muted"><span data-i18n="savingsLabel">vs. Uber Eats pickup (≈10%)</span><span id="sheetSavings">—</span></div>
+      <div class="row big"><span data-i18n="totalLabel">Estimated total</span><span id="sheetTotal">$0.00</span></div>
+    </div>
+    <button class="btn-go" id="checkoutGo" disabled data-i18n="goBtn">Checkout →</button>
+  </div>
+</aside>
+
+<footer>
+  <p>Lim&rsquo;s Garden · 林园 · 20001 Carlysle St, Dearborn, MI 48124 · (313) 563-4393</p>
+  <p>© <span id="yr"></span> · Draft v2 for owner review</p>
+</footer>
+
+<!-- ====================== Menu data ====================== -->
+<script id="menu-data" type="application/json">
+{
+  "en": [
+    { "cat": "🥟 Appetizers & Soup", "items": [
+      { "id": "rangoon", "name": "Crab Rangoon (4)",      "desc": "Crispy wontons, sweet & savory",         "price": 380 },
+      { "id": "wonton",  "name": "Wonton Soup",           "desc": "House favorite",                        "price": 0   },
+      { "id": "eggroll", "name": "Egg Rolls (2)",         "desc": "",                                       "price": 0   },
+      { "id": "hotsour", "name": "Hot & Sour Soup",       "desc": "",                                       "price": 0   }
+    ]},
+    { "cat": "🍚 Fried Rice", "items": [
+      { "id": "fr-veg",   "name": "Vegetable Fried Rice", "desc": "Wok-tossed, fresh daily",  "price": 450 },
+      { "id": "fr-beef",  "name": "Beef Fried Rice",      "desc": "Wok-tossed, fresh daily",  "price": 480 },
+      { "id": "fr-chk",   "name": "Chicken Fried Rice",   "desc": "Wok-tossed, fresh daily",  "price": 480 },
+      { "id": "fr-shr",   "name": "Shrimp Fried Rice",    "desc": "Wok-tossed, fresh daily",  "price": 495 },
+      { "id": "fr-pork",  "name": "Pork Fried Rice",      "desc": "Wok-tossed, fresh daily",  "price": 480 }
+    ]},
+    { "cat": "🍜 Lo Mein", "items": [
+      { "id": "lo-chk",  "name": "Chicken Lo Mein", "desc": "Soft noodles, house sauce",  "price": 984 },
+      { "id": "lo-shr",  "name": "Shrimp Lo Mein",  "desc": "Soft noodles, house sauce",  "price": 1060 },
+      { "id": "lo-beef", "name": "Beef Lo Mein",    "desc": "Soft noodles, house sauce",  "price": 984 },
+      { "id": "lo-pork", "name": "Pork Lo Mein",    "desc": "Soft noodles, house sauce",  "price": 984 }
+    ]},
+    { "cat": "⭐ Specials", "items": [
+      { "id": "gai",     "name": "Gai Kow",                              "desc": "Crispy chicken, Chinese vegetables", "price": 950 },
+      { "id": "almond",  "name": "Almond Boneless Chicken",              "desc": "Sweet almond sauce",                 "price": 0   },
+      { "id": "ss",      "name": "Sweet & Sour Chicken",                 "desc": "",                                   "price": 0   },
+      { "id": "shr-plum","name": "Fried Shrimp w/ Plum",                 "desc": "",                                   "price": 750 }
+    ]},
+    { "cat": "🥡 Combos", "items": [
+      { "id": "pepper",   "name": "Pepper Steak",         "desc": "With onions & bell peppers", "price": 1100 },
+      { "id": "broccoli", "name": "Broccoli Chicken",     "desc": "In garlic sauce",           "price": 800 },
+      { "id": "snowchk",  "name": "Chicken & Snow Peas",  "desc": "",                          "price": 0    },
+      { "id": "snowshr",  "name": "Shrimp w/ Snow Peas",  "desc": "",                          "price": 0    }
+    ]}
+  ],
+  "zh": [
+    { "cat": "🥟 小菜与汤品", "items": [
+      { "id": "rangoon", "name": "炸蟹角(4 只)", "desc": "外酥内嫩,香甜可口", "price": 380 },
+      { "id": "wonton",  "name": "云吞汤",       "desc": "本店招牌",         "price": 0   },
+      { "id": "eggroll", "name": "春卷(2 条)",   "desc": "",                  "price": 0   },
+      { "id": "hotsour", "name": "酸辣汤",       "desc": "",                  "price": 0   }
+    ]},
+    { "cat": "🍚 炒饭", "items": [
+      { "id": "fr-veg",   "name": "素炒饭",   "price": 450 },
+      { "id": "fr-beef",  "name": "牛肉炒饭", "price": 480 },
+      { "id": "fr-chk",   "name": "鸡肉炒饭", "price": 480 },
+      { "id": "fr-shr",   "name": "虾仁炒饭", "price": 495 },
+      { "id": "fr-pork",  "name": "猪肉炒饭", "price": 480 }
+    ]},
+    { "cat": "🍜 捞面", "items": [
+      { "id": "lo-chk",  "name": "鸡肉捞面", "price": 984 },
+      { "id": "lo-shr",  "name": "虾仁捞面", "price": 1060 },
+      { "id": "lo-beef", "name": "牛肉捞面", "price": 984 },
+      { "id": "lo-pork", "name": "猪肉捞面", "price": 984 }
+    ]},
+    { "cat": "⭐ 招牌", "items": [
+      { "id": "gai",     "name": "鸡球",               "desc": "酥脆鸡胸配中式蔬菜", "price": 950 },
+      { "id": "almond",  "name": "杏仁去骨鸡",         "desc": "香甜杏仁酱",         "price": 0 },
+      { "id": "ss",      "name": "糖醋鸡",             "desc": "",                  "price": 0 },
+      { "id": "shr-plum","name": "中式炸虾配梅子酱",   "desc": "",                  "price": 750 }
+    ]},
+    { "cat": "🥡 套餐", "items": [
+      { "id": "pepper",   "name": "胡椒牛柳",   "price": 1100 },
+      { "id": "broccoli", "name": "西兰花鸡",   "price": 800 },
+      { "id": "snowchk",  "name": "雪豆鸡",     "price": 0 },
+      { "id": "snowshr",  "name": "雪豆虾",     "price": 0 }
+    ]}
+  ],
+  "I18N": {
+    "en": {
+      "topLabel": "Order takeout",
+      "heroH": "Lim's Garden",
+      "heroP": "Tap + to add items. Pay online or cash on pickup.",
+      "pickupNote": "Pickup only · 20001 Carlysle St",
+      "demoPill": "DRAFT V2",
+      "demoBody": "<strong>Photos are placeholders.</strong> The final version will use real food photos taken at the restaurant. Try it: tap + to add items, then hit the red bar at the bottom to check out. Test card 4242 4242 4242 4242.",
+      "itemsLabel": "Items",
+      "goBtn": "Checkout →",
+      "sheetTitle": "Your order",
+      "subtotalLabel": "Subtotal",
+      "processingLabel": "Online payment processing (≈2.9% + $0.30)",
+      "savingsLabel": "vs. Uber Eats pickup (≈10%)",
+      "totalLabel": "Estimated total",
+      "addBtn": "Add",
+      "unpriced": "Ask for price",
+      "empty": "Your cart is empty."
+    },
+    "zh": {
+      "topLabel": "外带点餐",
+      "heroH": "林园",
+      "heroP": "点击 + 添加菜品。可在线支付或到店付现。",
+      "pickupNote": "仅限外带 · Carlysle 街 20001 号",
+      "demoPill": "草稿 V2",
+      "demoBody": "<strong>照片为占位图。</strong> 最终版本将使用餐厅实拍照片。点击 + 添加菜品,然后点击底部红色按钮结账。测试卡 4242 4242 4242 4242。",
+      "itemsLabel": "菜品",
+      "goBtn": "结账 →",
+      "sheetTitle": "您的订单",
+      "subtotalLabel": "小计",
+      "processingLabel": "在线支付手续费(≈2.9% + ¥2)",
+      "savingsLabel": "对比 Uber Eats 自取(≈10%)",
+      "totalLabel": "预计总计",
+      "addBtn": "添加",
+      "unpriced": "请到店询价",
+      "empty": "购物车为空。"
+    }
+  }
+}
+</script>
+
+<script>
+/* ===========================================================
+   Lim's Garden — order-v2 interactions
+   =========================================================== */
+(function () {
+  const data = JSON.parse(document.getElementById('menu-data').textContent);
+  const STORE_KEY = 'lims_cart_v2';
+  const URL_PARAMS = new URLSearchParams(location.search);
+  const workerUrl = 'https://lims-garden-checkout.dylanthrp.workers.dev';
+
+  function loadCart() {
+    try { return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; }
+    catch (e) { return {}; }
+  }
+  function saveCart(c) {
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(c)); } catch (e) {}
+  }
+  let cart = loadCart();
+
+  function cartCount(c) { return Object.values(c).reduce((a, b) => a + b, 0); }
+  function findItem(lang, id) {
+    for (const cat of data[lang]) {
+      for (const it of cat.items) if (it.id === id) return it;
+    }
+    return null;
+  }
+  function cartTotalCents(c) {
+    const lang = document.body.dataset.lang;
+    let total = 0;
+    for (const id of Object.keys(c)) {
+      const it = findItem(lang, id);
+      if (it && it.price > 0) total += (c[id] || 0) * it.price;
+    }
+    return total;
+  }
+  const fmt = (c) => '$' + (c / 100).toFixed(2);
+
+  /* ---------- i18n ---------- */
+  function applyLang(lang) {
+    document.body.dataset.lang = lang;
+    document.documentElement.lang = (lang === 'zh') ? 'zh-Hans' : 'en';
+    document.querySelectorAll('.lang-btn').forEach((b) => {
+      b.setAttribute('aria-pressed', b.dataset.setLang === lang ? 'true' : 'false');
+    });
+    const dict = data.I18N[lang];
+    document.querySelectorAll('[data-i18n]').forEach((el) => {
+      const k = el.dataset.i18n;
+      if (dict[k] != null) el.innerHTML = dict[k];
+    });
+    renderChips();
+    renderMenu();
+    updateBar();
+    renderSheet();
+  }
+
+  /* ---------- Category chips ---------- */
+  function renderChips() {
+    const lang = document.body.dataset.lang;
+    const wrap = document.getElementById('chips');
+    const cats = data[lang];
+    wrap.innerHTML = '';
+    cats.forEach((cat, idx) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'chip';
+      b.setAttribute('aria-pressed', idx === 0 ? 'true' : 'false');
+      b.textContent = cat.cat;
+      b.addEventListener('click', () => {
+        wrap.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', 'false'));
+        b.setAttribute('aria-pressed', 'true');
+        const target = document.getElementById('cat-' + idx);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      wrap.appendChild(b);
+    });
+  }
+
+  /* ---------- Menu tiles ---------- */
+  function renderMenu() {
+    const lang = document.body.dataset.lang;
+    const cats = data[lang];
+    const wrap = document.getElementById('menu');
+    wrap.innerHTML = '';
+    cats.forEach((cat, idx) => {
+      const sec = document.createElement('section');
+      sec.className = 'cat-section';
+      sec.id = 'cat-' + idx;
+      const h = document.createElement('h2');
+      h.textContent = cat.cat;
+      sec.appendChild(h);
+      const grid = document.createElement('div');
+      grid.className = 'tiles';
+      cat.items.forEach(it => grid.appendChild(makeTile(it, lang)));
+      sec.appendChild(grid);
+      wrap.appendChild(sec);
+    });
+  }
+
+  function makeTile(it, lang) {
+    const tile = document.createElement('div');
+    tile.className = 'tile' + (it.price <= 0 ? ' unpriced' : '');
+    tile.dataset.id = it.id;
+
+    const ph = document.createElement('div');
+    ph.className = 'ph';
+    ph.innerHTML = '<span style="font-size:11px;color:#8a7a5c;text-align:center;padding:8px;">[photo of ' + escapeHtml(it.name) + ']</span>' +
+      '<span class="ph-tag" data-ph-tag="' + escapeHtml(it.id) + '">PHOTO</span>';
+    tile.appendChild(ph);
+
+    const body = document.createElement('div');
+    body.className = 'body';
+
+    const name = document.createElement('div');
+    name.className = 'name';
+    name.textContent = it.name;
+    body.appendChild(name);
+
+    if (it.desc) {
+      const d = document.createElement('div');
+      d.className = 'desc';
+      d.textContent = it.desc;
+      body.appendChild(d);
+    } else if (it.price <= 0) {
+      const ask = document.createElement('div');
+      ask.className = 'ask';
+      ask.textContent = data.I18N[lang].unpriced;
+      body.appendChild(ask);
+    }
+
+    const row = document.createElement('div');
+    row.className = 'row';
+    const price = document.createElement('div');
+    price.className = 'price';
+    price.textContent = it.price > 0 ? fmt(it.price) : '—';
+    row.appendChild(price);
+
+    if (it.price > 0) {
+      const qty = document.createElement('div');
+      qty.className = 'qty';
+      qty.style.display = 'none';
+      const minus = document.createElement('button');
+      minus.type = 'button';
+      minus.textContent = '−';
+      minus.setAttribute('aria-label', 'Decrease');
+      const n = document.createElement('span');
+      n.className = 'count';
+      n.textContent = (cart[it.id] || 0);
+      const plus = document.createElement('button');
+      plus.type = 'button';
+      plus.textContent = '+';
+      plus.setAttribute('aria-label', 'Increase');
+      qty.appendChild(minus); qty.appendChild(n); qty.appendChild(plus);
+      row.appendChild(qty);
+
+      const add = document.createElement('button');
+      add.type = 'button';
+      add.className = 'add-btn';
+      add.textContent = '+ ' + data.I18N[lang].addBtn;
+      row.appendChild(add);
+
+      add.addEventListener('click', () => {
+        cart[it.id] = (cart[it.id] || 0) + 1;
+        saveCart(cart);
+        renderTileQty(tile, cart[it.id], lang);
+        updateBar();
+        updateSheetBadges();
+      });
+      minus.addEventListener('click', () => {
+        cart[it.id] = Math.max(0, (cart[it.id] || 0) - 1);
+        if (cart[it.id] === 0) delete cart[it.id];
+        saveCart(cart);
+        renderTileQty(tile, cart[it.id] || 0, lang);
+        updateBar();
+        renderSheet();
+      });
+      plus.addEventListener('click', () => {
+        cart[it.id] = (cart[it.id] || 0) + 1;
+        saveCart(cart);
+        renderTileQty(tile, cart[it.id], lang);
+        updateBar();
+        updateSheetBadges();
+      });
+
+      // Initial render of qty state
+      renderTileQty(tile, cart[it.id] || 0, lang);
+    }
+
+    body.appendChild(row);
+    tile.appendChild(body);
+    return tile;
+  }
+
+  function renderTileQty(tile, n, lang) {
+    const add = tile.querySelector('.add-btn');
+    const qty = tile.querySelector('.qty');
+    const count = tile.querySelector('.qty .count');
+    if (!add || !qty || !count) return;
+    count.textContent = n;
+    if (n > 0) {
+      add.style.display = 'none';
+      qty.style.display = 'inline-flex';
+    } else {
+      add.style.display = 'inline-block';
+      qty.style.display = 'none';
+    }
+  }
+
+  function updateBar() {
+    const n = cartCount(cart);
+    const total = cartTotalCents(cart);
+    document.getElementById('cartCount').textContent = n + ' ' + (n === 1 ? 'item' : 'items');
+    document.getElementById('cartTotal').textContent = fmt(total);
+    document.getElementById('goBtn').disabled = n === 0 || total === 0;
+  }
+
+  /* ---------- Sheet ---------- */
+  const sheet = document.getElementById('sheet');
+  const sheetBack = document.getElementById('sheetBack');
+  function openSheet() {
+    renderSheet();
+    sheet.classList.add('open');
+    sheetBack.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeSheet() {
+    sheet.classList.remove('open');
+    sheetBack.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('sheetClose').addEventListener('click', closeSheet);
+  sheetBack.addEventListener('click', closeSheet);
+  document.getElementById('cartInfo').addEventListener('click', openSheet);
+  document.getElementById('cartInfo').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openSheet(); }
+  });
+
+  function renderSheet() {
+    const lang = document.body.dataset.lang;
+    const body = document.getElementById('sheetBody');
+    body.innerHTML = '';
+    const entries = Object.keys(cart).filter(id => cart[id] > 0);
+    if (entries.length === 0) {
+      const empty = document.createElement('div');
+      empty.className = 'sheet-empty';
+      empty.textContent = data.I18N[lang].empty;
+      body.appendChild(empty);
+      document.getElementById('sheetSubtotal').textContent = '$0.00';
+      document.getElementById('sheetProcessing').textContent = '$0.00';
+      document.getElementById('sheetSavings').textContent = '—';
+      document.getElementById('sheetTotal').textContent = '$0.00';
+      document.getElementById('checkoutGo').disabled = true;
+      return;
+    }
+    let sub = 0;
+    entries.forEach(id => {
+      const it = findItem(lang, id);
+      if (!it) return;
+      const n = cart[id];
+      const lineCents = (it.price || 0) * n;
+      sub += lineCents;
+      const row = document.createElement('div');
+      row.className = 'sheet-row';
+      const nm = document.createElement('div');
+      nm.className = 'nm';
+      nm.textContent = it.name;
+      const qm = document.createElement('div');
+      qm.className = 'qty-mini';
+      const minus = document.createElement('button');
+      minus.textContent = '−';
+      const c = document.createElement('span');
+      c.className = 'n';
+      c.textContent = n;
+      const plus = document.createElement('button');
+      plus.textContent = '+';
+      qm.appendChild(minus); qm.appendChild(c); qm.appendChild(plus);
+      const pr = document.createElement('div');
+      pr.className = 'pr';
+      pr.textContent = it.price > 0 ? fmt(lineCents) : '—';
+      row.appendChild(nm); row.appendChild(qm); row.appendChild(pr);
+      body.appendChild(row);
+      minus.onclick = () => {
+        cart[id] = Math.max(0, n - 1);
+        if (cart[id] === 0) delete cart[id];
+        saveCart(cart);
+        renderSheet();
+        // Also refresh the underlying tile's qty state
+        const tile = document.querySelector('.tile[data-id="' + id + '"]');
+        if (tile) renderTileQty(tile, cart[id] || 0, lang);
+        updateBar();
+      };
+      plus.onclick = () => {
+        cart[id] = (cart[id] || 0) + 1;
+        saveCart(cart);
+        renderSheet();
+        const tile = document.querySelector('.tile[data-id="' + id + '"]');
+        if (tile) renderTileQty(tile, cart[id], lang);
+        updateBar();
+      };
+    });
+    const processing = Math.round(sub * 0.029) + 30;
+    const uberWouldCost = sub; // uber pickup takes ~10%
+    const uberFee = Math.round(sub * 0.10);
+    const savings = uberFee - processing;
+    document.getElementById('sheetSubtotal').textContent = fmt(sub);
+    document.getElementById('sheetProcessing').textContent = fmt(processing);
+    document.getElementById('sheetSavings').textContent = savings > 0 ? ('+' + fmt(savings) + ' saved') : '—';
+    document.getElementById('sheetTotal').textContent = fmt(sub + processing);
+    document.getElementById('checkoutGo').disabled = sub === 0;
+  }
+  function updateSheetBadges() {
+    // Just refresh counts; the open sheet re-renders fully on open.
+    if (sheet.classList.contains('open')) renderSheet();
+  }
+
+  /* ---------- Checkout ---------- */
+  async function checkout() {
+    const lang = document.body.dataset.lang;
+    const items = data[lang];
+    const lineItems = [];
+    for (const id of Object.keys(cart)) {
+      const it = findItem(lang, id);
+      const n = cart[id] || 0;
+      if (n > 0 && it && it.price > 0) {
+        lineItems.push({ name: it.name, unit_amount: it.price, quantity: n });
+      }
+    }
+    if (lineItems.length === 0) return;
+    const origin = location.origin + location.pathname.replace(/order-v2\.html?$/, '');
+    const successUrl = origin + 'order-v2.html?status=success';
+    const cancelUrl  = origin + 'order-v2.html?status=cancel';
+    const btn = document.getElementById('goBtn');
+    const btn2 = document.getElementById('checkoutGo');
+    btn.disabled = true; btn2.disabled = true;
+    const origText = btn.textContent;
+    btn.textContent = '...'; btn2.textContent = '...';
+    try {
+      const r = await fetch(workerUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ line_items: lineItems, success_url: successUrl, cancel_url: cancelUrl, metadata: { lang } })
+      });
+      if (!r.ok) {
+        const txt = await r.text().catch(() => '');
+        alert('Checkout failed: ' + r.status + (txt ? ' — ' + txt : ''));
+        return;
+      }
+      const { url } = await r.json();
+      if (!url) { alert('No URL returned.'); return; }
+      localStorage.setItem('lims_last_order_v2', JSON.stringify({ items: lineItems, lang, at: Date.now() }));
+      location.href = url;
+    } catch (e) {
+      alert('Network error: ' + e.message);
+    } finally {
+      btn.textContent = origText; btn2.textContent = data.I18N[lang].goBtn;
+      btn.disabled = false; btn2.disabled = false;
+    }
+  }
+  document.getElementById('goBtn').addEventListener('click', openSheet);
+  document.getElementById('checkoutGo').addEventListener('click', checkout);
+
+  /* ---------- Status banner ---------- */
+  function showStatus() {
+    const status = URL_PARAMS.get('status');
+    if (!status) return;
+    const lang = document.body.dataset.lang;
+    const last = JSON.parse(localStorage.getItem('lims_last_order_v2') || 'null');
+    const menu = document.getElementById('menu');
+    const banner = document.createElement('div');
+    banner.className = 'demo-banner';
+    banner.style.background = status === 'success' ? '#e8f4dd' : '#fde0e0';
+    banner.style.borderColor = status === 'success' ? '#5a8a3a' : '#cc7a7a';
+    if (status === 'success') {
+      const items = last ? last.items.map(i => '· ' + i.quantity + '× ' + i.name).join('<br>') : '';
+      const total = last ? last.items.reduce((a, i) => a + i.unit_amount * i.quantity, 0) : 0;
+      banner.innerHTML = '<span class="demo-pill" style="background:#2d4a18;">' + (lang === 'zh' ? '下单成功' : 'ORDER PLACED') + '</span>' +
+        '<strong>' + (lang === 'zh' ? '已收到订单!' : 'We received your order!') + '</strong> ' + (lang === 'zh' ? '请在选定的取餐时间到店,凭姓名取餐。' : 'Bring your name when you arrive.') +
+        (items ? '<div style="margin-top:8px; font-size:13px; line-height:1.6;">' + items + '</div><div style="margin-top:8px; font-weight:800; color:#2d4a18;">' + (lang === 'zh' ? '实付:' : 'Charged:') + ' ' + fmt(total) + '</div>' : '');
+      localStorage.removeItem(STORE_KEY);
+      cart = {};
+    } else {
+      banner.innerHTML = '<span class="demo-pill" style="background:#cc7a7a;">' + (lang === 'zh' ? '已取消' : 'CANCELLED') + '</span>' +
+        (lang === 'zh' ? '没有产生费用。' : 'No charge. You can re-add items and try again.');
+    }
+    menu.insertBefore(banner, menu.firstChild);
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+  }
+
+  /* ---------- Init ---------- */
+  document.querySelectorAll('.lang-btn').forEach((b) => {
+    b.addEventListener('click', () => applyLang(b.dataset.setLang));
+  });
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  applyLang('en');
+  showStatus();
+})();
+</script>
+
+</body>
+</html>
