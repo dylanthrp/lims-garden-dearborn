@@ -767,11 +767,10 @@ footer a { color: var(--c-muted); }
     });
     var dict = I18N[lang];
     document.querySelectorAll('[data-i18n]').forEach(function (el) {
-      if (!el) return;
       var key = el.dataset.i18n;
       var val = dict[key];
       if (typeof val !== 'string') return;
-      try { el.textContent = val; } catch (e) { console.warn('i18n skip', key, e.message); }
+      el.textContent = val;
     });
     // Replace day-of-week row labels in Mandarin (data-i18n handled the rest)
     if (lang === 'zh') {
