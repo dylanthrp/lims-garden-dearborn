@@ -658,7 +658,6 @@ footer a { color: var(--c-muted); }
       status.textContent = 'Closed today (Monday)';
     }
     document.getElementById('yr').textContent = now.getFullYear();
-    if (status.dataset.langEn) status.textContent = status.dataset[document.body.dataset.lang === 'zh' ? 'langZh' : 'langEn'];
   }
 
   /* ---------- i18n: English ⇄ Mandarin (Simplified) ---------- */
@@ -773,12 +772,11 @@ footer a { color: var(--c-muted); }
       if (typeof val !== 'string') return;
       el.textContent = val;
     });
-    // Replace day-of-week row labels in Mandarin
+    // Replace day-of-week row labels in Mandarin (data-i18n handled the rest)
     if (lang === 'zh') {
       document.querySelectorAll('#hours-table tr th').forEach(function (th, i) {
-        th.textContent = DOW_ZH[i];
+        if (DOW_ZH[i]) th.textContent = DOW_ZH[i];
       });
-      document.querySelector('#hours-table tr.closed td').textContent = dict.closed;
     }
     // Re-run open/closed badge with localized text
     refreshStatus(lang);
